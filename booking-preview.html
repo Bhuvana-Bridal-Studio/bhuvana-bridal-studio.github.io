@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Booking Details | Bhuvana's Bridal &amp; Tailoring Studio</title>
+  <meta name="description"
+    content="Review and confirm your official booking with Bhuvana's Bridal &amp; Tailoring Studio, Salem.">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+
+  <!-- Fonts & Stylesheets -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/booking-poster.css">
+</head>
+
+<body>
+
+  <!-- Sticky Header -->
+  <header>
+    <div class="wrap nav">
+      <a class="logo-link" href="index.html" aria-label="Bhuvana's Bridal Studio Home">
+        <img class="logo-img" src="assets/images/logo.png" alt="Bhuvana's Bridal Studio logo" width="50" height="50">
+        <div class="brand-text">
+          <span class="brand-title">Bhuvana's Bridal Studio</span>
+          <span class="brand-sub">Salem &middot; Bridal &amp; Tailoring</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="index.html#top">Hero</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#divisions">Specialities</a></li>
+          <li><a href="index.html#gallery">Gallery</a></li>
+          <li><a href="index.html#contact">Footer</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn sm gold btn-booking-nav" href="select-service.html">Booking</a>
+        <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+    <ul class="mobile-nav-list">
+      <li><a href="index.html#top">Hero <span>&rarr;</span></a></li>
+      <li><a href="index.html#about">About <span>&rarr;</span></a></li>
+      <li><a href="index.html#divisions">Specialities <span>&rarr;</span></a></li>
+      <li><a href="index.html#gallery">Gallery <span>&rarr;</span></a></li>
+      <li><a href="index.html#contact">Footer <span>&rarr;</span></a></li>
+      <li><a href="select-service.html" class="mobile-booking-link">Booking <span>&rarr;</span></a></li>
+    </ul>
+    <div class="mobile-nav-contact">
+      <p><strong>Bhuvana's Bridal Studio</strong><br>Erumbalai, Steel Plant, Salem</p>
+      <p>Phone / WhatsApp: <a href="tel:+916374036629">+91 63740 36629</a></p>
+      <p>Instagram: <a href="https://instagram.com/__itz_berry_" target="_blank" rel="noopener">@__itz_berry_</a></p>
+    </div>
+  </div>
+
+  <main class="bg-ivory space-lg">
+    <div class="preview-container">
+
+      <!-- Progress Bar (Step 5 of 5) -->
+      <div id="progress-bar-container" style="margin-bottom: 2rem;"></div>
+
+      <div class="center" style="margin-bottom: 1.5rem;">
+        <span class="eyebrow">Step 5 of 5 &middot; Final Confirmation</span>
+        <h1>CONFIRM YOUR BOOKING</h1>
+        <p class="lead">
+          Your personalized booking confirmation poster has been generated. Please review your details and click Confirm below to submit your enquiry directly to the studio.
+        </p>
+      </div>
+
+      <!-- Single Primary Action Control Panel -->
+      <div class="submission-control-panel" id="submission-panel">
+        <!-- WhatsApp Opt-In Consent Checkbox (unchecked by default) -->
+        <div class="whatsapp-consent-wrapper">
+          <input type="checkbox" id="whatsapp-consent-checkbox" name="whatsapp_consent">
+          <label for="whatsapp-consent-checkbox" class="whatsapp-consent-text">
+            <strong>Receive instant booking updates via WhatsApp:</strong> Check this box if you agree to receive official confirmation, appointment timings, and status notifications from Bhuvana's Bridal Studio directly to your mobile number.
+          </label>
+        </div>
+
+        <!-- Single Primary Action Button -->
+        <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
+          <button class="btn btn-confirm-main" id="btn-confirm-booking" type="button">
+            <span class="btn-icon">✨</span>
+            <span class="btn-label">CONFIRM YOUR BOOKING</span>
+          </button>
+          <a class="btn ghost" id="btn-edit-details" href="review.html" style="padding: 0.85rem 1.5rem;">
+            <span>✏</span>
+            <span>Edit Details</span>
+          </a>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--muted); margin-top: 0.9rem; margin-bottom: 0;">
+          Your booking enquiry and generated poster will be securely transmitted to studio owner Bhuvaneshwari for date and slot verification.
+        </p>
+      </div>
+
+      <!-- Status Alerts / Notifications -->
+      <div id="share-feedback-alert" class="form-status" style="display:none; margin-bottom: 1.5rem;" role="status"></div>
+
+      <!-- Poster Preview Frame -->
+      <div class="preview-image-wrapper" id="preview-image-wrapper">
+        <div class="poster-loader" id="poster-loader">
+          <div class="poster-spinner"></div>
+          <h3 style="font-family:var(--serif); font-size:1.5rem; color:var(--ink);">Generating Your Booking Poster...</h3>
+          <p style="color:var(--muted); font-size:0.95rem; margin-top:0.4rem;">
+            Assembling studio branding, typography, and customer details.
+          </p>
+        </div>
+        <img id="generated-poster-img" style="display:none;" alt="Bhuvana's Bridal &amp; Tailoring Studio Booking Confirmation Poster">
+      </div>
+
+      <!-- Instructions & Honest Status Notice Box -->
+      <div class="review-card" style="margin-top: 2.5rem; background: var(--white);">
+        <h3 style="font-size:1.25rem; margin-bottom: 0.8rem; color:var(--ink);">
+          Booking Process &amp; Verification Notice
+        </h3>
+        <div style="font-size:0.95rem; color:var(--ink-light); line-height:1.6;">
+          <p style="margin-bottom:0.6rem;">
+            <strong>Step 1:</strong> Click <strong>CONFIRM YOUR BOOKING</strong> above. Your high-resolution booking poster and details are submitted to our studio dashboard.
+          </p>
+          <p style="margin-bottom:0.6rem;">
+            <strong>Step 2:</strong> Bhuvaneshwari reviews your preferred date, requirements, and artisan availability.
+          </p>
+          <p style="margin-bottom:0.6rem;">
+            <strong>Step 3:</strong> Once approved, you will receive confirmation and appointment details (via WhatsApp if opted-in or direct phone call).
+          </p>
+          <div style="margin-top:1rem; padding:0.85rem 1.2rem; background:rgba(184, 142, 82, 0.1); border-left:4px solid var(--gold-dark); border-radius:4px;">
+            <strong style="color:var(--gold-dark);">&#9432; Honest Status Notice:</strong>
+            <span style="color:var(--ink);">This submission represents an official enquiry received by the studio. Service slots, timings, and advance deposits are confirmed after direct verification with Bhuvaneshwari.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Customer Success Modal (Rendered after successful submission) -->
+  <div class="bbs-modal-backdrop" id="success-modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
+    <div class="bbs-modal-card">
+      <div class="bbs-success-icon">✓</div>
+      <span class="bbs-success-badge">ENQUIRY RECEIVED &middot; WAITING FOR STUDIO APPROVAL</span>
+      <h2 id="success-modal-title" style="font-family:var(--serif); font-size:2rem; color:var(--ink); margin-bottom:0.5rem;">
+        Booking Submitted!
+      </h2>
+      <p style="color:var(--ink-light); font-size:0.95rem; margin-bottom:1rem;">
+        Thank you for choosing Bhuvana's Bridal &amp; Tailoring Studio. Your booking details and generated poster have been securely sent to Bhuvaneshwari for date and slot verification.
+      </p>
+
+      <div class="bbs-booking-ref-box">
+        <span style="display:block; font-size:0.75rem; text-transform:uppercase; color:var(--muted); margin-bottom:0.25rem;">Booking Reference</span>
+        <span id="modal-booking-ref">BBS-2026-XXXXXX</span>
+      </div>
+
+      <div style="text-align:left; background:#FDF9F5; border-radius:10px; padding:1rem 1.25rem; font-size:0.9rem; line-height:1.6; border:1px solid #E8D5BC;">
+        <div><strong>Customer:</strong> <span id="modal-customer-name">Valued Client</span></div>
+        <div><strong>Event Date:</strong> <span id="modal-event-date">Not specified</span></div>
+        <div><strong>Location:</strong> <span id="modal-location">Salem</span></div>
+        <div><strong>WhatsApp Updates:</strong> <span id="modal-whatsapp-status">Not opted in</span></div>
+      </div>
+
+      <div class="bbs-modal-actions">
+        <button class="btn gold" id="btn-modal-download" type="button">
+          <span>⬇</span>
+          <span>Download Poster (PNG)</span>
+        </button>
+        <a class="btn ghost" href="index.html" style="color:var(--ink); border-color:var(--ink);">
+          <span>🏠</span>
+          <span>Back to Home</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offscreen Render Target (1080px width) -->
+  <div id="poster-render-target" style="position:fixed; left:-9999px; top:0; width:1080px; z-index:-1;" aria-hidden="true"></div>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="wrap">
+      <div class="footer-brand">
+        <img class="footer-logo" src="assets/images/logo.png" alt="Bhuvana's Bridal Studio logo" width="52" height="52" loading="lazy">
+        <div>
+          <h4 data-content-key="footer.brand" data-content-label="Footer · Studio name">Bhuvana's Bridal Studio</h4>
+          <p data-content-key="footer.description" data-content-label="Footer · Studio description">Bridal makeup artist &amp; designer blouse studio by Bhuvaneshwari.<br>Erumbalai, Steel Plant &amp; nearby areas, Salem, Tamil Nadu.</p>
+          <p style="margin-top:0.6rem;">Phone / WhatsApp: <a href="tel:+916374036629">+91 63740 36629</a><br>Instagram: <a href="https://instagram.com/__itz_berry_" target="_blank" rel="noopener">@__itz_berry_</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Bhuvana's Bridal Studio. All rights reserved.</div>
+        <div>Salem, Tamil Nadu &middot; Dedicated Bridal &amp; Tailoring Services</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/services-data.js"></script>
+  <script src="js/booking-store.js"></script>
+  <script src="js/cloudflare-config.js"></script>
+  <script src="js/html2canvas.min.js"></script>
+  <script src="js/booking-poster.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      document.addEventListener('DOMContentLoaded', async function () {
+        if (!window.BBS_STORE || !window.BBS_CATALOG || !window.BBS_POSTER) return;
+
+        const store = window.BBS_STORE;
+        const posterModule = window.BBS_POSTER;
+        const config = window.BBS_CONFIG;
+
+        // Render progress bar (Step 5 of 5)
+        store.renderProgressBar('progress-bar-container', 5);
+
+        const contact = store.getContact();
+        const services = store.getPopulated();
+        const requirements = store.getRequirements();
+
+        // Redirect if no services selected
+        if (services.length === 0) {
+          window.location.href = 'select-service.html';
+          return;
+        }
+
+        const renderTarget = document.getElementById('poster-render-target');
+        const previewImg = document.getElementById('generated-poster-img');
+        const loader = document.getElementById('poster-loader');
+        const alertBox = document.getElementById('share-feedback-alert');
+        const btnConfirm = document.getElementById('btn-confirm-booking');
+        const whatsappConsentCheckbox = document.getElementById('whatsapp-consent-checkbox');
+        const successModal = document.getElementById('success-modal');
+
+        let generatedCanvas = null;
+        let generatedBlob = null;
+        let activeBookingRef = store.getRef();
+        let reservationToken = null;
+
+        function showAlert(msg, isSuccess) {
+          if (!alertBox) return;
+          alertBox.style.display = 'block';
+          alertBox.className = 'form-status ' + (isSuccess ? 'is-ready' : 'is-error');
+          alertBox.innerHTML = msg;
+          alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // =========================================================================
+        // STEP 1: RESERVE SERVER-ISSUED BOOKING REFERENCE (OR LOCAL FALLBACK)
+        // =========================================================================
+        try {
+          if (config && config.apiFetch) {
+            const reservationData = {
+              customer_name: contact.name || contact.fullName || 'Valued Client',
+              customer_phone: contact.mobile || contact.phone || '',
+              customer_email: contact.email || '',
+              event_date: contact.eventDate || contact.preferredDate || '',
+              location: contact.location || '',
+              service_ids: services.map(s => s.id),
+              service_breakdown: {
+                bridal: services.filter(s => s.divisionId === 'bridal-beauty').map(s => s.title),
+                tailoring: services.filter(s => s.divisionId === 'designer-blouse').map(s => s.title)
+              },
+              additional_requirements: requirements,
+              notes: contact.notes || '',
+              total_price: store.calculateSubtotal ? store.calculateSubtotal() : 0,
+              whatsapp_consent: false
+            };
+
+            const res = await config.apiFetch('/api/bookings/reserve', {
+              method: 'POST',
+              body: JSON.stringify(reservationData)
+            });
+
+            if (res && res.success && res.bookingRef) {
+              activeBookingRef = res.bookingRef;
+              reservationToken = res.reservationToken;
+              if (store.setRef) {
+                store.setRef(activeBookingRef);
+              }
+            }
+          }
+        } catch (resErr) {
+          console.warn('[Booking] Server reservation deferred, using local client reference:', resErr);
+          // Keep activeBookingRef from local store
+        }
+
+        // =========================================================================
+        // RENDER POSTER WITH OFFICIAL FINAL REFERENCE
+        // =========================================================================
+        const html = posterModule.generateHTML({
+          contact: contact,
+          services: services,
+          requirements: requirements,
+          ref: activeBookingRef
+        });
+
+        renderTarget.innerHTML = html;
+
+        try {
+          generatedCanvas = await posterModule.renderToCanvas(document.getElementById('poster-root'));
+          const dataUrl = generatedCanvas.toDataURL('image/png');
+          generatedBlob = await posterModule.toBlob(generatedCanvas);
+
+          if (loader) loader.style.display = 'none';
+          if (previewImg) {
+            previewImg.src = dataUrl;
+            previewImg.style.display = 'block';
+          }
+        } catch (err) {
+          console.error('Poster rendering error:', err);
+          if (loader) {
+            loader.innerHTML = `
+              <p style="color:#C62828; font-weight:600;">Failed to render poster image: ${err.message}</p>
+            `;
+          }
+        }
+
+        // =========================================================================
+        // STEP 2: CONFIRM YOUR BOOKING (UPLOAD POSTER & COMMIT D1 PENDING)
+        // =========================================================================
+        if (btnConfirm) {
+          btnConfirm.addEventListener('click', async function () {
+            if (!generatedBlob || !generatedCanvas) {
+              showAlert('Please wait for the booking poster to finish rendering before confirming.', false);
+              return;
+            }
+
+            // Disable button and show spinner
+            btnConfirm.disabled = true;
+            const originalHtml = btnConfirm.innerHTML;
+            btnConfirm.innerHTML = `<span class="btn-spinner"></span> <span>SUBMITTING ENQUIRY...</span>`;
+
+            const whatsappConsent = Boolean(whatsappConsentCheckbox && whatsappConsentCheckbox.checked);
+
+            try {
+              const customerPayload = {
+                customer_name: contact.name || contact.fullName || 'Valued Client',
+                customer_phone: contact.mobile || contact.phone || '',
+                customer_email: contact.email || '',
+                event_date: contact.eventDate || contact.preferredDate || '',
+                location: contact.location || '',
+                service_ids: services.map(s => s.id),
+                additional_requirements: requirements,
+                notes: contact.notes || '',
+                whatsapp_consent: whatsappConsent ? 1 : 0
+              };
+
+              const formData = new FormData();
+              formData.append('booking_ref', activeBookingRef);
+              if (reservationToken) {
+                formData.append('reservation_token', reservationToken);
+              }
+              formData.append('poster', generatedBlob, `${activeBookingRef}.png`);
+              formData.append('booking_data', JSON.stringify(customerPayload));
+
+              let submitSuccess = false;
+
+              if (config && config.url) {
+                let submitRes;
+                try {
+                  submitRes = await fetch(config.url('/api/bookings/submit'), {
+                    method: 'POST',
+                    body: formData
+                  });
+                } catch (netErr) {
+                  console.warn('[Booking Submission] Direct worker upload error:', netErr);
+                  throw new Error('Could not reach the booking server. Your booking was not submitted.');
+                }
+
+                const json = await submitRes.json().catch(() => ({}));
+                if (submitRes.ok && json.success) {
+                  submitSuccess = true;
+                } else {
+                  throw new Error(json.error || `Booking submission failed (HTTP ${submitRes.status})`);
+                }
+              } else {
+                throw new Error('Booking server configuration is unavailable');
+              }
+
+              if (submitSuccess) {
+                // Show Customer Success Modal
+                document.getElementById('modal-booking-ref').textContent = activeBookingRef;
+                document.getElementById('modal-customer-name').textContent = customerPayload.customer_name;
+                document.getElementById('modal-event-date').textContent = customerPayload.event_date || 'To be scheduled';
+                document.getElementById('modal-location').textContent = customerPayload.location || 'Salem';
+                document.getElementById('modal-whatsapp-status').textContent = whatsappConsent
+                  ? `✓ Opted in (${customerPayload.customer_phone})`
+                  : 'Not opted in (Studio will contact via phone call)';
+
+                if (successModal) {
+                  successModal.style.display = 'flex';
+                }
+
+                // Hide submit panel
+                const panel = document.getElementById('submission-panel');
+                if (panel) panel.style.display = 'none';
+
+                // Setup download button in modal
+                const btnModalDownload = document.getElementById('btn-modal-download');
+                if (btnModalDownload) {
+                  btnModalDownload.addEventListener('click', function () {
+                    const filename = `Bhuvana-Booking-${activeBookingRef}.png`;
+                    posterModule.downloadPNG(generatedCanvas, filename);
+                  });
+                }
+              }
+            } catch (err) {
+              console.error('Confirmation error:', err);
+              btnConfirm.disabled = false;
+              btnConfirm.innerHTML = originalHtml;
+              showAlert(`Error submitting booking enquiry: ${err.message}. Please try again.`, false);
+            }
+          });
+        }
+
+      });
+    })();
+  </script>
+</body>
+
+</html>

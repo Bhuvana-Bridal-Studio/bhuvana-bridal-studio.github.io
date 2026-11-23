@@ -1,0 +1,36 @@
+# Environment and secret files
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+!*.dev.vars.example
+service-account*.json
+firebase-admin*.json
+.wrangler/
+
+# Local configuration overrides containing sensitive tokens
+env-config.js
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE and Editor directories
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Dependencies and build outputs
+node_modules/
+dist/
+build/
+*.log
+
+# Scratch & temporary test scripts
+scratch/

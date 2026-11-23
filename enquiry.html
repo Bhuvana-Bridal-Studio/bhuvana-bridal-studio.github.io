@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customer Booking &amp; Consultation | Bhuvana's Bridal Studio</title>
+  <meta name="description"
+    content="Book your bridal makeup, hairstyling, mehndi, and designer blouse tailoring with Bhuvana's Bridal Studio in Salem.">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  <link rel="shortcut icon" href="assets/images/favicon.png">
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Sticky Header -->
+  <header>
+    <div class="wrap nav">
+      <a class="logo-link" href="index.html" aria-label="Bhuvana's Bridal Studio Home">
+        <img class="logo-img" src="assets/images/logo.png" alt="Bhuvana's Bridal Studio logo" width="50" height="50">
+        <div class="brand-text">
+          <span class="brand-title">Bhuvana's Bridal Studio</span>
+          <span class="brand-sub">Salem &middot; Bridal &amp; Tailoring</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="index.html#top">Hero</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#divisions">Specialities</a></li>
+          <li><a href="index.html#gallery">Gallery</a></li>
+          <li><a href="index.html#contact">Footer</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn sm gold btn-booking-nav" href="select-service.html">Booking</a>
+        <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+    <ul class="mobile-nav-list">
+      <li><a href="index.html#top">Hero <span>&rarr;</span></a></li>
+      <li><a href="index.html#about">About <span>&rarr;</span></a></li>
+      <li><a href="index.html#divisions">Specialities <span>&rarr;</span></a></li>
+      <li><a href="index.html#gallery">Gallery <span>&rarr;</span></a></li>
+      <li><a href="index.html#contact">Footer <span>&rarr;</span></a></li>
+      <li><a href="select-service.html" class="mobile-booking-link">Booking <span>&rarr;</span></a></li>
+    </ul>
+    <div class="mobile-nav-contact">
+      <p><strong>Bhuvana's Bridal Studio</strong><br>Erumbalai, Steel Plant, Salem</p>
+      <p>Phone / WhatsApp: <a href="tel:+916374036629">+91 63740 36629</a></p>
+      <p>Instagram: <a href="https://instagram.com/__itz_berry_" target="_blank" rel="noopener">@__itz_berry_</a></p>
+    </div>
+  </div>
+
+  <main class="bg-ivory space-lg">
+    <div class="wrap-narrow">
+      <!-- 5-Step Progress Bar -->
+      <div id="progress-bar-container" style="margin-bottom: 2rem;"></div>
+
+      <!-- Experience Indicator -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.5rem;">
+        <div id="package-indicator" class="package-selected-indicator" style="margin-bottom:0;">
+          <span>👑</span>
+          <span id="package-title-display">Bridal Beauty Experience</span>
+        </div>
+        <a href="select-service.html" style="font-size:0.85rem; color:var(--gold-dark); text-decoration:underline;">
+          Change Experience Option
+        </a>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- STEP 1: PERSONAL DETAILS                                                  -->
+      <!-- ========================================================================= -->
+      <section id="step-1" class="booking-step active">
+        <div class="center" style="margin-bottom:2rem;">
+          <span class="eyebrow">Step 1 of 5 &middot; Client Information</span>
+          <h1>Personal Details</h1>
+          <p class="lead">
+            Please enter your contact information so Bhuvaneshwari can reach you directly and coordinate your celebration schedule.
+          </p>
+        </div>
+
+        <div class="enquiry-container">
+          <form id="form-step-1" novalidate>
+            <div class="form-grid">
+              <!-- Full Name -->
+              <div class="form-group full">
+                <label for="p-name">Bride / Customer Full Name *</label>
+                <input class="form-control" type="text" id="p-name" name="name" placeholder="e.g. Priya Darshini" required autocomplete="name">
+                <span class="err-msg"></span>
+              </div>
+
+              <!-- Mobile Number -->
+              <div class="form-group">
+                <label for="p-mobile">Mobile Number *</label>
+                <input class="form-control" type="tel" id="p-mobile" name="mobile" placeholder="10-digit mobile number" required inputmode="tel" autocomplete="tel">
+                <span class="err-msg"></span>
+              </div>
+
+              <!-- WhatsApp Number -->
+              <div class="form-group">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+                  <label for="p-whatsapp" style="margin-bottom:0;">WhatsApp Number (Optional)</label>
+                  <label style="font-size:0.78rem; color:var(--gold-dark); display:inline-flex; align-items:center; gap:0.3rem; cursor:pointer;">
+                    <input type="checkbox" id="sync-whatsapp" checked> Same as Mobile
+                  </label>
+                </div>
+                <input class="form-control" type="tel" id="p-whatsapp" name="whatsapp" placeholder="WhatsApp number" inputmode="tel">
+                <span class="err-msg"></span>
+              </div>
+
+              <!-- Email (Optional) -->
+              <div class="form-group full">
+                <label for="p-email">Email Address (Optional)</label>
+                <input class="form-control" type="email" id="p-email" name="email" placeholder="priya@example.com" autocomplete="email">
+                <span class="err-msg"></span>
+              </div>
+
+              <!-- Full Address -->
+              <div class="form-group full">
+                <label for="p-address">Full Residential Address *</label>
+                <textarea class="form-control" id="p-address" name="address" rows="2" placeholder="House / Flat No., Street, Area, Landmark" required></textarea>
+                <span class="err-msg"></span>
+              </div>
+
+              <!-- City / Location -->
+              <div class="form-group">
+                <label for="p-city">City / Region</label>
+                <input class="form-control" type="text" id="p-city" name="city" value="Salem" placeholder="Salem / Nearby" required>
+                <span class="err-msg"></span>
+              </div>
+
+              <!-- Preferred Contact Method -->
+              <div class="form-group">
+                <label for="p-contact-pref">Preferred Contact Method *</label>
+                <select class="form-control" id="p-contact-pref" name="preferredContact">
+                  <option value="WhatsApp">WhatsApp Message</option>
+                  <option value="Phone Call">Direct Phone Call</option>
+                </select>
+              </div>
+
+              <!-- WhatsApp Updates Consent -->
+              <div class="form-group full" style="margin-top:0.5rem; background:rgba(200, 164, 107, 0.08); padding:0.85rem 1rem; border-radius:8px; border:1px solid var(--border);">
+                <label style="display:flex; align-items:flex-start; gap:0.6rem; cursor:pointer; font-size:0.88rem; color:var(--ink);">
+                  <input type="checkbox" id="p-whatsapp-consent" name="whatsappConsent" style="margin-top:0.2rem;">
+                  <span>
+                    <strong>Receive instant booking updates via WhatsApp:</strong> I consent to receive official booking confirmations, muhurtham timelines, and appointment reminders from Bhuvana's Bridal Studio directly to my WhatsApp number.
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="action-btn-row">
+              <a class="btn ghost" href="select-service.html">&larr; Change Option</a>
+              <button class="btn gold" type="submit">Continue to Event Details &rarr;</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- STEP 2: EVENT DETAILS                                                     -->
+      <!-- ========================================================================= -->
+      <section id="step-2" class="booking-step">
+        <div class="center" style="margin-bottom:2rem;">
+          <span class="eyebrow">Step 2 of 5 &middot; Celebration Schedule</span>
+          <h1>Event Details</h1>
+          <p class="lead">Share the event type, date, timing, and event venue location.</p>
+        </div>
+
+        <div class="enquiry-container">
+          <form id="form-step-2" novalidate>
+            <div class="form-grid">
+              <!-- Event Type -->
+              <div class="form-group">
+                <label for="e-type">Event Type *</label>
+                <select class="form-control" id="e-type" name="eventType" required>
+                  <option value="Wedding / Muhurtham Ceremony">Wedding / Muhurtham Ceremony</option>
+                  <option value="Reception">Reception</option>
+                  <option value="Engagement Ceremony">Engagement Ceremony</option>
+                  <option value="Puberty Function (Manjal Neerattu Vizha)">Puberty Function (Manjal Neerattu Vizha)</option>
+                  <option value="Baby Shower (Valaikappu / Seemantham)">Baby Shower (Valaikappu / Seemantham)</option>
+                  <option value="Photoshoot / Pre-Wedding">Photoshoot / Pre-Wedding</option>
+                  <option value="Festive Party / Family Celebration">Festive Party / Family Celebration</option>
+                  <option value="Other Celebration">Other Celebration</option>
+                </select>
+              </div>
+
+              <!-- Event Date -->
+              <div class="form-group">
+                <label for="e-date">Event Date *</label>
+                <input class="form-control" type="date" id="e-date" name="eventDate" required>
+                <span class="err-msg"></span>
+              </div>
+
+              <!-- Event Time -->
+              <div class="form-group full">
+                <label for="e-time-period">Event Timing *</label>
+                <select class="form-control" id="e-time-period" aria-label="Event timing" required>
+                  <option value="">Select a time of day</option>
+                  <option value="Early morning">Early morning</option>
+                  <option value="Morning">Morning</option>
+                  <option value="Afternoon">Afternoon</option>
+                  <option value="Evening">Evening</option>
+                  <option value="Night">Night</option>
+                  <option value="Midnight">Midnight</option>
+                </select>
+                <input type="hidden" id="e-time" name="eventTime">
+                <span class="err-msg"></span>
+              </div>
+
+              <!-- Event Address -->
+              <div class="form-group full">
+                <label for="e-location">Event Address</label>
+                <textarea class="form-control" id="e-location" name="eventLocation" rows="2" placeholder="Enter the event venue address"></textarea>
+                <span class="err-msg"></span>
+              </div>
+              <div class="event-location-or" aria-hidden="true">(or)</div>
+              <div class="form-group full">
+                <label for="e-map-url">Google Maps link</label>
+                <input class="form-control" type="url" id="e-map-url" name="eventMapUrl" placeholder="Paste a Google Maps share link">
+                <span class="err-msg"></span>
+                <small style="display:block; margin-top:0.35rem; color:var(--muted);">Fill the address or the Google Maps link. One is required; both are okay too.</small>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="action-btn-row">
+              <button class="btn ghost btn-step-back" type="button" data-target="step-2">&larr; Back to Event Details</button>
+              <button class="btn gold" type="submit">Continue to Customization &rarr;</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- ========================================================================= -->
+      <!-- STEP 3: SERVICE DETAILS                                                   -->
+      <!-- ========================================================================= -->
+      <section id="step-3" class="booking-step">
+        <div class="center" style="margin-bottom:2rem;">
+          <span class="eyebrow">Step 3 of 5 &middot; Service Details</span>
+          <h1>Service Details</h1>
+          <p class="lead">Choose the details that will help us prepare your studio service.</p>
+        </div>
+        <div class="enquiry-container">
+          <form id="form-step-3" novalidate>
+
+            <!-- Bridal and beauty preferences -->
+            <div id="service-block-bridal" style="margin-bottom:2rem;">
+              <h3 style="font-size:1.3rem; color:var(--burgundy); border-bottom:1.5px solid var(--border); padding-bottom:0.5rem; margin-bottom:1.25rem;">
+                Bridal Beauty Service Details
+              </h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="s-makeup-style">Makeup Style</label>
+                  <select class="form-control" id="s-makeup-style" name="makeupStyle">
+                    <option value="Traditional bridal makeup">Traditional bridal makeup</option>
+                    <option value="HD makeup">HD makeup</option>
+                    <option value="Airbrush makeup">Airbrush makeup</option>
+                    <option value="Soft glam makeup">Soft glam makeup</option>
+                    <option value="Discuss during consultation">Discuss during consultation</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="s-hair-style">Hairstyle</label>
+                  <select class="form-control" id="s-hair-style" name="hairStyle">
+                    <option value="Traditional bridal bun">Traditional bridal bun</option>
+                    <option value="Braided hairstyle">Braided hairstyle</option>
+                    <option value="Open curls or waves">Open curls or waves</option>
+                    <option value="Discuss during consultation">Discuss during consultation</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="s-draping-type">Saree / Outfit Draping</label>
+                  <select class="form-control" id="s-draping-type" name="drapingType">
+                    <option value="Traditional saree draping">Traditional saree draping</option>
+                    <option value="Bridal saree pleats and pinning">Bridal saree pleats and pinning</option>
+                    <option value="Lehenga dupatta draping">Lehenga dupatta draping</option>
+                    <option value="Discuss during consultation">Discuss during consultation</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="s-mehndi-style">Mehndi Preference</label>
+                  <select class="form-control" id="s-mehndi-style" name="mehndiStyle">
+                    <option value="Bridal full-hand mehndi">Bridal full-hand mehndi</option>
+                    <option value="Simple mehndi design">Simple mehndi design</option>
+                    <option value="No mehndi required">No mehndi required</option>
+                    <option value="Discuss during consultation">Discuss during consultation</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="s-jewellery-assistance">Jewellery Assistance</label>
+                  <select class="form-control" id="s-jewellery-assistance" name="jewelleryAssistance">
+                    <option value="Need help with jewellery setting">Need help with jewellery setting</option>
+                    <option value="Jewellery will be arranged by customer">Jewellery will be arranged by customer</option>
+                    <option value="Discuss during consultation">Discuss during consultation</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="s-makeup-people">Number of People for Makeup</label>
+                  <select class="form-control" id="s-makeup-people" name="makeupPeople">
+                    <option value="1">1 person</option>
+                    <option value="2">2 people</option>
+                    <option value="3">3 people</option>
+                    <option value="4+">4 or more people</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3B: Designer Blouse & Tailoring Block -->
+            <div id="service-block-tailoring" style="display:none; margin-bottom:2rem;">
+              <h3 style="font-size:1.3rem; color:var(--burgundy); border-bottom:1.5px solid var(--border); padding-bottom:0.5rem; margin-bottom:1.25rem;">
+                ✂ Designer Blouse &amp; Aari Work Atelier
+              </h3>
+              <div class="form-grid">
+                <!-- Blouse Neckline & Cut -->
+                <div class="form-group">
+                  <label for="s-blouse-cut">Neckline &amp; Pattern</label>
+                  <select class="form-control" id="s-blouse-cut" name="blouseDesignType">
+                    <option value="Sweetheart Neckline with Piped Border">Sweetheart Neckline with Piped Border</option>
+                    <option value="Deep U / Pot Neck with Custom Latkans">Deep U / Pot Neck with Custom Latkans</option>
+                    <option value="Boat Neck with Scallop Cut-Work">Boat Neck with Scallop Cut-Work</option>
+                    <option value="Traditional Auspicious Square Cut">Traditional Auspicious Square Cut</option>
+                    <option value="Custom Bridal Statement Design">Custom Bridal Statement Design</option>
+                    <option value="Discuss during design consultation">Discuss during design consultation</option>
+                  </select>
+                </div>
+
+                <!-- Stitching & Lining -->
+                <div class="form-group">
+                  <label for="s-blouse-stitch">Stitching &amp; Lining Structure</label>
+                  <select class="form-control" id="s-blouse-stitch" name="blouseStitchType">
+                    <option value="Padded Princess Cut with Premium Soft Lining">Padded Princess Cut with Premium Soft Lining</option>
+                    <option value="Standard Non-Padded with Soft Lining">Standard Non-Padded with Soft Lining</option>
+                    <option value="Concealed Side-Zipper Closure">Concealed Side-Zipper Closure</option>
+                    <option value="Traditional Back Hook / Eye Closure">Traditional Back Hook / Eye Closure</option>
+                    <option value="Sample Blouse Provided for Reference">Sample Blouse Provided for Reference</option>
+                  </select>
+                </div>
+
+                <!-- Aari Work -->
+                <div class="form-group">
+                  <label for="s-aari-work">Aari Embroidery Work Level</label>
+                  <select class="form-control" id="s-aari-work" name="aariWorkType">
+                    <option value="Heavy Bridal Aari Sleeves (Zardozi & Kundan)">Heavy Bridal Aari Sleeves (Zardozi & Kundan)</option>
+                    <option value="Neckline Border & Sleeve Edge Work">Neckline Border & Sleeve Edge Work</option>
+                    <option value="Traditional Mango & Temple Zari Embroidery">Traditional Mango & Temple Zari Embroidery</option>
+                    <option value="Silk Thread Shading & Delicate Cut-Beads">Silk Thread Shading & Delicate Cut-Beads</option>
+                    <option value="Custom Pattern matched to Saree Pallu">Custom Pattern matched to Saree Pallu</option>
+                    <option value="No Aari Embroidery (Simple Stitching Only)">No Aari Embroidery (Simple Stitching Only)</option>
+                  </select>
+                </div>
+
+                <!-- Blouses Quantity -->
+                <div class="form-group">
+                  <label for="s-blouse-count">Number of Blouses to Stitch</label>
+                  <select class="form-control" id="s-blouse-count" name="blouseCount">
+                    <option value="1 Blouse">1 Blouse</option>
+                    <option value="2 Blouses">2 Blouses</option>
+                    <option value="3 Blouses">3 Blouses</option>
+                    <option value="4+ Blouses">4+ Blouses</option>
+                  </select>
+                </div>
+
+                <!-- Fabric Status -->
+                <div class="form-group">
+                  <label for="s-fabric-status">Fabric Sourcing</label>
+                  <select class="form-control" id="s-fabric-status" name="fabricStatus">
+                    <option value="Customer Providing Saree Blouse Material">Customer Providing Saree Blouse Material</option>
+                    <option value="Studio to Source Matching Raw Silk / Lining">Studio to Source Matching Raw Silk / Lining</option>
+                    <option value="Need Consultation on Fabric Selection">Need Consultation on Fabric Selection</option>
+                  </select>
+                </div>
+
+                <!-- Measurement Method -->
+                <div class="form-group">
+                  <label for="s-measurements">Measurements &amp; Trial Preference</label>
+                  <select class="form-control" id="s-measurements" name="measurementPreference">
+                    <option value="Visit Salem Studio for In-Person Measurements">Visit Salem Studio for In-Person Measurements</option>
+                    <option value="Send Best-Fitting Sample Blouse to Studio">Send Best-Fitting Sample Blouse to Studio</option>
+                    <option value="Enter Measurements Online with Guidance">Enter Measurements Online with Guidance</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="action-btn-row">
+              <button class="btn ghost btn-step-back" type="button" data-target="step-2">&larr; Back to Event Details</button>
+              <button class="btn gold" type="submit">Continue to Customization &rarr;</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- STEP 4: CUSTOMIZATION & PREFERENCES                                       -->
+      <!-- ========================================================================= -->
+      <section id="step-4" class="booking-step">
+        <div class="center" style="margin-bottom:2rem;">
+          <span class="eyebrow">Step 4 of 5 &middot; Preferences</span>
+          <h1>Customization &amp; Preferences</h1>
+          <p class="lead">
+            Share any special requests, allergies, or preferences for your booking.
+          </p>
+        </div>
+
+        <div class="enquiry-container">
+          <form id="form-step-4" novalidate>
+            <div class="form-grid">
+              <!-- Special Notes / Allergies -->
+              <div class="form-group full">
+                <label for="c-notes">Special Requests, Allergies or Skin Sensitivity (Optional)</label>
+                <textarea class="form-control" id="c-notes" name="specialNotes" rows="3" placeholder="Tell us if you have sensitive skin, cosmetics allergies, specific fabric preferences, or strict muhurtham timing constraints..."></textarea>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="action-btn-row">
+              <button class="btn ghost btn-step-back" type="button" data-target="step-3">&larr; Back to Service Details</button>
+              <button class="btn gold" type="submit">Continue to Review &amp; Confirm &rarr;</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- STEP 5: REVIEW & CONFIRMATION                                             -->
+      <!-- ========================================================================= -->
+      <section id="step-5" class="booking-step">
+        <div class="center" style="margin-bottom:2rem;">
+          <span class="eyebrow">Step 5 of 5 &middot; Review &amp; Confirmation</span>
+          <h1>Review &amp; Confirm Your Booking</h1>
+          <p class="lead">
+            Review the details before sending your booking enquiry to Bhuvaneshwari.
+          </p>
+        </div>
+
+        <!-- Section 1 Summary: Personal Details -->
+        <div class="review-card">
+          <div class="review-card-header">
+            <div>
+              <strong style="color:var(--ink); font-size:1.1rem;">1. Personal Details</strong>
+              <div style="font-size:0.8rem; color:var(--muted);">Bride &amp; contact information</div>
+            </div>
+            <button class="review-edit-btn btn-jump-step" data-step="1" type="button">Edit Personal Details</button>
+          </div>
+          <div class="review-grid">
+            <div class="review-item">
+              <span class="review-item-label">Customer Name</span>
+              <span class="review-item-val" id="rev-p-name">—</span>
+            </div>
+            <div class="review-item">
+              <span class="review-item-label">Mobile Number</span>
+              <span class="review-item-val" id="rev-p-mobile">—</span>
+            </div>
+            <div class="review-item">
+              <span class="review-item-label">WhatsApp Number</span>
+              <span class="review-item-val" id="rev-p-whatsapp">—</span>
+            </div>
+            <div class="review-item">
+              <span class="review-item-label">Email Address</span>
+              <span class="review-item-val" id="rev-p-email">Not provided</span>
+            </div>
+            <div class="review-item" style="grid-column:1/-1;">
+              <span class="review-item-label">Residential Address</span>
+              <span class="review-item-val" id="rev-p-address">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2 Summary: Event Details -->
+        <div class="review-card">
+          <div class="review-card-header">
+            <div>
+              <strong style="color:var(--ink); font-size:1.1rem;">2. Event &amp; Schedule Details</strong>
+              <div style="font-size:0.8rem; color:var(--muted);">Muhurtham date, venue, and timing</div>
+            </div>
+            <button class="review-edit-btn btn-jump-step" data-step="2" type="button">Edit Event Details</button>
+          </div>
+          <div class="review-grid">
+            <div class="review-item">
+              <span class="review-item-label">Event Type</span>
+              <span class="review-item-val" id="rev-e-type">—</span>
+            </div>
+            <div class="review-item">
+              <span class="review-item-label">Event Date</span>
+              <span class="review-item-val" id="rev-e-date">—</span>
+            </div>
+            <div class="review-item">
+              <span class="review-item-label">Event Timing</span>
+              <span class="review-item-val" id="rev-e-ready">—</span>
+            </div>
+            <div class="review-item" style="grid-column:1/-1;">
+              <span class="review-item-label">Venue &amp; Address</span>
+              <span class="review-item-val" id="rev-e-venue">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3 Summary: Service Details -->
+        <div class="review-card">
+          <div class="review-card-header">
+            <div>
+              <strong style="color:var(--ink); font-size:1.1rem;">3. Service Specifications</strong>
+              <div style="font-size:0.8rem; color:var(--muted);">Selected artistry, styling, and blouse specifications</div>
+            </div>
+            <button class="review-edit-btn btn-jump-step" data-step="3" type="button">Edit Service Details</button>
+          </div>
+          <div id="rev-service-details-list" style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.92rem;">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Section 4 Summary: Customization & References -->
+        <div class="review-card">
+          <div class="review-card-header">
+            <div>
+              <strong style="color:var(--ink); font-size:1.1rem;">4. Special Requests</strong>
+              <div style="font-size:0.8rem; color:var(--muted);">Optional notes for the studio</div>
+            </div>
+            <button class="review-edit-btn btn-jump-step" data-step="4" type="button">Edit Preferences</button>
+          </div>
+          <div class="review-grid">
+            <div class="review-item">
+              <span class="review-item-label">Special Notes / Allergies</span>
+              <span class="review-item-val" id="rev-c-notes">None</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer Honest Status Notice & Primary CTA -->
+        <div class="submission-control-panel" id="submission-panel">
+          <div style="background:rgba(200, 164, 107, 0.12); border-left:4px solid var(--gold-dark); border-radius:6px; padding:1rem 1.25rem; margin-bottom:1.5rem; text-align:left;">
+            <div style="font-weight:700; color:var(--burgundy); font-size:0.95rem; margin-bottom:0.25rem;">
+              &#9432; Status: Enquiry Received &ndash; Pending Studio Confirmation
+            </div>
+            <p style="font-size:0.85rem; color:var(--ink-light); margin:0; line-height:1.55;">
+              Submitting this enquiry reserves your place in our schedule review queue. Bhuvaneshwari will personally inspect your celebration date, venue timing, and artisan availability before final confirmation and advance deposit.
+            </p>
+          </div>
+
+          <!-- Submit enquiry, then download a simple copy -->
+          <div style="display:flex; flex-direction:column; align-items:center; gap:0.85rem;">
+            <button class="btn btn-confirm-main" id="btn-confirm-booking" type="button" style="width:100%; max-width:420px; font-size:1.15rem; padding:1.1rem 2rem;">
+              <span class="btn-icon">✨</span>
+              <span class="btn-label">CONFIRM YOUR BOOKING</span>
+            </button>
+
+            <button class="btn ghost" id="btn-download-booking-copy" type="button" disabled style="width:100%; max-width:420px; padding:0.85rem 1.5rem; opacity:.62;">
+              <span>⬇</span>
+              <span>Download a Booking Copy</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Feedback Alert -->
+        <div id="share-feedback-alert" class="form-status" style="display:none; margin-top:1.5rem;" role="status"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Customer Success Modal -->
+  <div class="bbs-modal-backdrop" id="success-modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
+    <div class="bbs-modal-card">
+      <div class="bbs-success-icon">✓</div>
+      <span class="bbs-success-badge">ENQUIRY RECEIVED &middot; WAITING FOR STUDIO APPROVAL</span>
+      <h2 id="success-modal-title" style="font-family:var(--serif); font-size:2rem; color:var(--ink); margin-bottom:0.5rem;">
+        Booking Submitted!
+      </h2>
+      <p style="color:var(--ink-light); font-size:0.95rem; margin-bottom:1rem;">
+        Thank you for choosing Bhuvana's Bridal &amp; Tailoring Studio. Your booking enquiry has been sent to Bhuvaneshwari for date and slot verification.
+      </p>
+
+      <div class="bbs-booking-ref-box">
+        <span style="display:block; font-size:0.75rem; text-transform:uppercase; color:var(--muted); margin-bottom:0.25rem;">Booking Reference</span>
+        <span id="modal-booking-ref">BBS-2026-XXXXXX</span>
+      </div>
+
+      <div style="text-align:left; background:#FDF9F5; border-radius:10px; padding:1rem 1.25rem; font-size:0.9rem; line-height:1.6; border:1px solid #E8D5BC;">
+        <div><strong>Customer:</strong> <span id="modal-customer-name">Valued Client</span></div>
+        <div><strong>Event Date:</strong> <span id="modal-event-date">Not specified</span></div>
+        <div><strong>Location:</strong> <span id="modal-location">Salem</span></div>
+        <div><strong>Status:</strong> <span style="color:var(--burgundy); font-weight:600;">Enquiry Received &ndash; Pending Confirmation</span></div>
+      </div>
+
+      <div class="bbs-modal-actions">
+        <button class="btn gold" id="btn-modal-download" type="button">
+          <span>⬇</span>
+          <span>Download Booking Copy</span>
+        </button>
+        <a class="btn ghost" href="index.html" style="color:var(--ink); border-color:var(--ink);">
+          <span>🏠</span>
+          <span>Back to Home</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="wrap">
+      <div class="footer-brand">
+        <img class="footer-logo" src="assets/images/logo.png" alt="Bhuvana's Bridal Studio logo" width="52" height="52" loading="lazy">
+        <div>
+          <h4 data-content-key="footer.brand" data-content-label="Footer · Studio name">Bhuvana's Bridal Studio</h4>
+          <p data-content-key="footer.description" data-content-label="Footer · Studio description">Bridal makeup artist &amp; designer blouse studio by Bhuvaneshwari.<br>Erumbalai, Steel Plant &amp; nearby areas, Salem, Tamil Nadu.</p>
+          <p style="margin-top:0.6rem;">Phone / WhatsApp: <a href="tel:+916374036629">+91 63740 36629</a><br>Instagram: <a href="https://instagram.com/__itz_berry_" target="_blank" rel="noopener">@__itz_berry_</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Bhuvana's Bridal Studio. All rights reserved.</div>
+        <div>Salem, Tamil Nadu &middot; Dedicated Bridal &amp; Tailoring Services</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/services-data.js"></script>
+  <script src="js/booking-store.js"></script>
+  <script src="js/cloudflare-config.js"></script>
+  <script src="js/enquiry-form.js?v=service-step3-fix"></script>
+</body>
+
+</html>

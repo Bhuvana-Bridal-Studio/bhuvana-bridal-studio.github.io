@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Owner Studio Portal | Bhuvana's Bridal &amp; Tailoring Studio</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f8f4ee">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Bhuvana Studio">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon.png">
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/studio-dashboard.css">
+</head>
+
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="dash-header">
+    <div class="dash-nav">
+      <a href="studio-inbox.html" class="dash-brand">
+        <img src="assets/images/logo.png" alt="Bhuvana's Bridal Studio Logo" class="dash-logo">
+        <div>
+          <div class="dash-brand-title">Bhuvana's Studio</div>
+          <div class="dash-brand-badge">Private Owner Portal</div>
+        </div>
+      </a>
+
+      <div class="dash-actions">
+        <button id="btn-push-toggle" class="dash-btn dash-btn-outline" title="Enable push notifications on this device">
+          <span>🔔</span>
+          <span id="push-status-label">Push Alerts</span>
+        </button>
+
+        <div class="dash-user-pill">
+          <span>👤</span>
+          <span id="owner-name-label">Bhuvaneshwari</span>
+        </div>
+        <div class="dash-account-actions">
+          <button id="btn-dashboard-menu" class="dash-btn dash-btn-outline dash-menu-toggle" type="button" aria-label="Open owner menu" aria-controls="portal-navigation" aria-expanded="false" title="Open owner menu">
+            <span class="dash-menu-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 9-Section Dashboard Layout -->
+  <div class="dash-shell">
+    <!-- Sidebar Navigation -->
+    <aside class="dash-sidebar" id="portal-navigation" aria-label="Portal Navigation" aria-hidden="true">
+      <button class="dash-nav-btn active" data-section="overview">
+        <span class="nav-icon">📊</span>
+        <span>Overview</span>
+      </button>
+      <button class="dash-nav-btn" data-section="bookings">
+        <span class="nav-icon">📋</span>
+        <span>Bookings</span>
+      </button>
+      <button class="dash-nav-btn" data-section="calendar">
+        <span class="nav-icon">📅</span>
+        <span>Calendar</span>
+      </button>
+      <button class="dash-nav-btn" data-section="customers">
+        <span class="nav-icon">👥</span>
+        <span>Customers</span>
+      </button>
+      <button class="dash-nav-btn" data-section="services">
+        <span class="nav-icon">🏷️</span>
+        <span>Services &amp; Pricing</span>
+      </button>
+      <button class="dash-nav-btn" data-section="content">
+        <span class="nav-icon">✏️</span>
+        <span>Website Content</span>
+      </button>
+      <button class="dash-nav-btn" data-section="gallery">
+        <span class="nav-icon">🖼️</span>
+        <span>Gallery</span>
+      </button>
+      <button class="dash-nav-btn" data-section="notifications">
+        <span class="nav-icon">🔔</span>
+        <span>Notifications</span>
+      </button>
+      <button class="dash-nav-btn" data-section="reports">
+        <span class="nav-icon">📈</span>
+        <span>Reports</span>
+      </button>
+      <button class="dash-nav-btn" data-section="settings">
+        <span class="nav-icon">⚙️</span>
+        <span>Owner Settings</span>
+      </button>
+      <button id="btn-owner-logout" class="dash-nav-btn dash-logout-menu-item" type="button" title="Sign out of portal">
+        <span class="nav-icon">🚪</span>
+        <span>Logout</span>
+      </button>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="dash-content-area">
+
+      <!-- ========================================================================= -->
+      <!-- SECTION 1: DASHBOARD OVERVIEW                                             -->
+      <!-- ========================================================================= -->
+      <section id="section-overview" class="dash-section active">
+        <!-- KPI Metric Cards -->
+        <div class="dash-metrics-grid">
+          <div class="dash-metric-card">
+            <div class="metric-label">Total Enquiries</div>
+            <div class="metric-value" id="kpi-total">0</div>
+          </div>
+          <div class="dash-metric-card metric-card-pending">
+            <div class="metric-label">Pending Approval</div>
+            <div class="metric-value" id="kpi-pending">0</div>
+          </div>
+          <div class="dash-metric-card metric-card-approved">
+            <div class="metric-label">Approved Bookings</div>
+            <div class="metric-value" id="kpi-approved">0</div>
+          </div>
+          <div class="dash-metric-card metric-card-rejected">
+            <div class="metric-label">Rejected / Cancelled</div>
+            <div class="metric-value" id="kpi-rejected">0</div>
+          </div>
+        </div>
+
+        <div class="overview-secondary-grid">
+          <!-- Upcoming Events Schedule -->
+          <div style="background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.45rem; color:var(--burgundy);">
+                Upcoming Studio Appointments
+              </h3>
+              <button class="dash-btn dash-btn-outline btn-switch-section" data-target="calendar" style="font-size:0.8rem; padding:0.35rem 0.75rem;">
+                Open Calendar &rarr;
+              </button>
+            </div>
+            <div id="overview-upcoming-list">
+              <p style="color:var(--ink-light); font-size:0.9rem;">Loading upcoming schedule...</p>
+            </div>
+          </div>
+
+          <!-- Quick Actions & Recent Activity Feed -->
+          <div style="background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.5rem;">
+            <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.45rem; color:var(--burgundy); margin-bottom: 1rem;">
+              Studio Activity Feed
+            </h3>
+            <div id="overview-activity-feed" style="font-size: 0.88rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.85rem;">
+              <div style="padding: 0.6rem; background: var(--ivory); border-radius: 8px;">
+                <strong>System Active:</strong> Connected to Cloudflare Worker API &amp; Cloudinary storage.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- SECTION 2: BOOKING MANAGEMENT                                             -->
+      <!-- ========================================================================= -->
+      <section id="section-bookings" class="dash-section">
+        <!-- Filter & Search Toolbar -->
+        <div class="dash-toolbar">
+          <div class="dash-filter-tabs">
+            <button class="filter-tab active" data-status="all">All Enquiries</button>
+            <button class="filter-tab" data-status="pending">Pending</button>
+            <button class="filter-tab" data-status="approved">Approved</button>
+            <button class="filter-tab" data-status="rejected">Rejected</button>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+            <input type="text" id="dash-search-input" class="dash-search-input" placeholder="Search ref, customer, phone, venue...">
+            <button id="btn-refresh" class="dash-btn dash-btn-outline" title="Refresh list">
+              <span>🔄</span>
+              <span>Refresh</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bookings Table -->
+        <div class="dash-table-wrapper">
+          <table class="dash-table">
+            <thead>
+              <tr>
+                <th>Booking Ref</th>
+                <th>Customer Name</th>
+                <th>Phone</th>
+                <th>WhatsApp</th>
+                <th>Event Date</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-table-body">
+              <tr>
+                  <td colspan="8" style="text-align: center; padding: 3rem; color: var(--ink-light);">
+                  Loading studio bookings...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- SECTION 3: BOOKING CALENDAR                                               -->
+      <!-- ========================================================================= -->
+      <section id="section-calendar" class="dash-section">
+        <div class="calendar-controls">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <button class="dash-btn dash-btn-outline" id="cal-prev-month">&larr; Prev Month</button>
+            <h2 id="cal-current-label" style="font-family:'Cormorant Garamond', serif; font-size:1.8rem; color:var(--burgundy); margin:0;">
+              Month Year
+            </h2>
+            <button class="dash-btn dash-btn-outline" id="cal-next-month">Next Month &rarr;</button>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <button class="dash-btn dash-btn-danger" id="btn-open-block-date" style="font-size:0.85rem;">
+              <span>🚫</span> Block Unavailable Date
+            </button>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div style="display: flex; gap: 1.5rem; margin-bottom: 1rem; font-size: 0.85rem; align-items: center;">
+          <span style="display: flex; align-items: center; gap: 0.4rem;">
+            <span style="width: 12px; height: 12px; background: #2E7D32; border-radius: 3px; display: inline-block;"></span> Approved Booking
+          </span>
+          <span style="display: flex; align-items: center; gap: 0.4rem;">
+            <span style="width: 12px; height: 12px; background: #F57F17; border-radius: 3px; display: inline-block;"></span> Pending Enquiry
+          </span>
+          <span style="display: flex; align-items: center; gap: 0.4rem;">
+            <span style="width: 12px; height: 12px; background: #C62828; border-radius: 3px; display: inline-block;"></span> Blocked Date / Studio Leave
+          </span>
+          <span style="display: flex; align-items: center; gap: 0.4rem;">
+            <span class="conflict-badge">!</span> Date Conflict (Multiple Bookings)
+          </span>
+        </div>
+
+        <!-- 7-column Calendar Grid -->
+        <div class="calendar-grid" id="calendar-grid-container">
+          <!-- Injected by JS -->
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- SECTION 4: CUSTOMER MANAGEMENT                                            -->
+      <!-- ========================================================================= -->
+      <section id="section-customers" class="dash-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h2 style="font-family:'Cormorant Garamond', serif; font-size:1.85rem; color:var(--burgundy); margin-bottom:0.25rem;">
+              Customer Directory
+            </h2>
+            <p style="color:var(--muted); font-size:0.9rem; margin:0;">
+              View customer profiles, past bookings history, contact details, and repeat customer tags.
+            </p>
+          </div>
+          <input type="text" id="customer-search-input" class="dash-search-input" placeholder="Search customer by name or phone...">
+        </div>
+
+        <div class="dash-table-wrapper">
+          <table class="dash-table">
+            <thead>
+              <tr>
+                <th>Customer Name</th>
+                <th>Mobile</th>
+                <th>WhatsApp</th>
+                <th>Email</th>
+                <th>City / Area</th>
+                <th>Total Bookings</th>
+                <th>Customer Tag</th>
+                <th>Quick Actions</th>
+              </tr>
+            </thead>
+            <tbody id="customers-table-body">
+              <tr>
+                <td colspan="8" style="text-align: center; padding: 2rem; color: var(--ink-light);">
+                  Aggregating customer profiles...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- SECTION 5: SERVICES & PRICING MANAGEMENT                                  -->
+      <!-- ========================================================================= -->
+      <section id="section-services" class="dash-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h2 style="font-family:'Cormorant Garamond', serif; font-size:1.85rem; color:var(--burgundy); margin-bottom:0.25rem;">
+              Services &amp; Pricing Catalog
+            </h2>
+            <p style="color:var(--muted); font-size:0.9rem; margin:0;">
+              Manage services across Bridal &amp; Beauty and Designer Blouse, edit rates, and toggle availability.
+            </p>
+          </div>
+          <button class="dash-btn dash-btn-primary" id="btn-add-service">
+            <span>+</span> Add Custom Service
+          </button>
+        </div>
+
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+          <button class="filter-tab active service-div-filter" data-div="all">All Divisions</button>
+          <button class="filter-tab service-div-filter" data-div="bridal-beauty">Bridal &amp; Beauty</button>
+          <button class="filter-tab service-div-filter" data-div="designer-blouse">Designer Blouse</button>
+        </div>
+
+        <div class="studio-card-grid" id="services-grid-container">
+          <!-- Injected by JS -->
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- OWNER PUBLISHED SITE COPY                                                 -->
+      <!-- ========================================================================= -->
+      <section id="section-content" class="dash-section">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.85rem;color:var(--burgundy);">Website Content</h2>
+        <p style="color:var(--muted);">Edit the marked headings and descriptions shown on the public website. Saved text appears there through the Worker API.</p>
+        <div id="content-editor-list" class="content-editor-list" aria-live="polite">Loading editable website text…</div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- SECTION 6: GALLERY MANAGEMENT                                             -->
+      <!-- ========================================================================= -->
+      <section id="section-gallery" class="dash-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h2 style="font-family:'Cormorant Garamond', serif; font-size:1.85rem; color:var(--burgundy); margin-bottom:0.25rem;">
+              Studio Gallery &amp; Portfolio
+            </h2>
+            <p style="color:var(--muted); font-size:0.9rem; margin:0;">
+              Upload, organize, and manage portfolio photos showcased to bridal customers.
+            </p>
+          </div>
+          <label class="gallery-category-picker">Upload category
+            <select id="gallery-subcategory-filter" class="login-form-input">
+              <optgroup label="Bridal &amp; Beauty">
+                <option value="bridal-beauty|baby-shower">Baby Shower Makeup</option>
+                <option value="bridal-beauty|puberty-makeup">Puberty Makeup</option>
+                <option value="bridal-beauty|mehndi-design">Mehndi Design</option>
+                <option value="bridal-beauty|wedding-makeup">Wedding Makeup</option>
+                <option value="bridal-beauty|party-makeup">Party Makeup</option>
+                <option value="bridal-beauty|engagement-makeup">Engagement Makeup</option>
+                <option value="bridal-beauty|reception-makeup">Reception Makeup</option>
+                <option value="bridal-beauty|bridal-hairstyling">Bridal Hairstyling</option>
+                <option value="bridal-beauty|other-bridal">Other Bridal Work</option>
+              </optgroup>
+              <optgroup label="Designer Blouse">
+                <option value="designer-blouse|bridal-blouse">Bridal Blouse Designs</option>
+                <option value="designer-blouse|maggam-work">Maggam Work</option>
+                <option value="designer-blouse|aari-work">Aari Work</option>
+                <option value="designer-blouse|embroidery">Embroidery Designs</option>
+                <option value="designer-blouse|sleeve-designs">Sleeve Designs</option>
+                <option value="designer-blouse|neck-designs">Neck Designs</option>
+                <option value="designer-blouse|other-blouse">Other Blouse Work</option>
+              </optgroup>
+            </select>
+          </label>
+          <div class="gallery-toolbar-actions" role="group" aria-label="Gallery photo actions">
+            <button class="dash-btn dash-btn-primary" id="btn-add-gallery-photo" type="button"><span>📷</span> Add Photo</button>
+            <button class="dash-btn dash-btn-danger" id="btn-delete-gallery-photo" type="button"><span>🗑</span> Delete Photo</button>
+            <button class="dash-btn dash-btn-outline" id="btn-arrange-gallery-photo" type="button"><span>↕</span> Arrangement</button>
+          </div>
+        </div>
+
+        <input type="file" id="gallery-photo-files" accept="image/jpeg,image/png,image/webp" multiple hidden>
+        <div id="gallery-management-status" class="form-status" role="status" aria-live="polite"></div>
+
+        <div class="gallery-grid-owner" id="gallery-grid-container">
+          <!-- Injected by JS -->
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- SECTION 7: NOTIFICATION MANAGEMENT                                        -->
+      <!-- ========================================================================= -->
+      <section id="section-notifications" class="dash-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h2 style="font-family:'Cormorant Garamond', serif; font-size:1.85rem; color:var(--burgundy); margin-bottom:0.25rem;">
+              Notification Management &amp; WhatsApp Logs
+            </h2>
+            <p style="color:var(--muted); font-size:0.9rem; margin:0;">
+              Register this device for new booking alerts. Customer WhatsApp messages remain owner-reviewed before sending.
+            </p>
+          </div>
+          <button class="dash-btn dash-btn-outline" id="btn-retry-failed-notifs">
+            <span>🔄</span> Retry Failed Notifications
+          </button>
+        </div>
+
+        <!-- Push Status Banner -->
+        <div style="background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <strong style="color: var(--burgundy); font-size: 1.05rem;">Firebase Web Push Notifications (FCM)</strong>
+            <div style="font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem;" id="fcm-status-description">
+              Status: Checking browser push subscription...
+            </div>
+          </div>
+          <button class="dash-btn dash-btn-outline" id="btn-test-push-alert" title="Show a local browser notification to check this device's permission">
+            <span>🔔</span> Test Browser Alert
+          </button>
+        </div>
+
+        <!-- WhatsApp Logs Table -->
+        <h3 style="font-size: 1.15rem; color: var(--ink); margin-bottom: 0.75rem;">WhatsApp Customer Notification Logs</h3>
+        <div class="dash-table-wrapper">
+          <table class="dash-table">
+            <thead>
+              <tr>
+                <th>Booking Ref</th>
+                <th>Recipient Mobile</th>
+                <th>Template / Event</th>
+                <th>Timestamp</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="notifications-table-body" data-responsive-labels="Booking Ref|Recipient Mobile|Template / Event|Timestamp|Status">
+              <tr>
+                <td colspan="5" style="text-align: center; padding: 2rem; color: var(--ink-light);">
+                  No WhatsApp delivery logs recorded yet.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- SECTION 8: REPORTS & HISTORY                                              -->
+      <!-- ========================================================================= -->
+      <section id="section-reports" class="dash-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h2 style="font-family:'Cormorant Garamond', serif; font-size:1.85rem; color:var(--burgundy); margin-bottom:0.25rem;">
+              Studio Analytics &amp; Reports
+            </h2>
+            <p style="color:var(--muted); font-size:0.9rem; margin:0;">
+              Monthly booking volume, status trends, and exportable financial summaries.
+            </p>
+          </div>
+          <div style="display: flex; gap: 0.75rem;">
+            <button class="dash-btn dash-btn-outline" id="btn-export-csv">
+              <span>📊</span> Export CSV
+            </button>
+            <button class="dash-btn dash-btn-primary" id="btn-export-backup">
+              <span>💾</span> Export Full JSON
+            </button>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+          <div class="dash-metric-card">
+            <div class="metric-label">Approved Rate</div>
+            <div class="metric-value" id="rep-approval-rate">0%</div>
+          </div>
+          <div class="dash-metric-card">
+            <div class="metric-label">This Month's Events</div>
+            <div class="metric-value" id="rep-month-events">0</div>
+          </div>
+          <div class="dash-metric-card">
+            <div class="metric-label">Most Requested Division</div>
+            <div class="metric-value" id="rep-popular-division" style="font-size:1.5rem; line-height:1.3;">Bridal Beauty</div>
+          </div>
+        </div>
+
+        <div style="background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.5rem;">
+          <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.45rem; color:var(--burgundy); margin-bottom: 1rem;">
+            Monthly Enquiry Breakdown
+          </h3>
+          <div id="reports-monthly-breakdown" style="font-size: 0.92rem; line-height: 1.6;">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- SECTION 9: OWNER SETTINGS                                                 -->
+      <!-- ========================================================================= -->
+      <section id="section-settings" class="dash-section">
+        <h2 style="font-family:'Cormorant Garamond', serif; font-size:1.85rem; color:var(--burgundy); margin-bottom:0.25rem;">
+          Owner Settings &amp; Studio Profile
+        </h2>
+        <p style="color:var(--muted); font-size:0.9rem; margin-bottom: 1.75rem;">
+          Update studio contact information, notification preferences, and change your owner account password.
+        </p>
+
+        <div class="owner-settings-grid">
+          <!-- Password Change Card -->
+          <div style="background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.5rem;">
+            <h3 style="font-size: 1.2rem; color: var(--ink); margin-bottom: 1rem;">Change Owner Password</h3>
+            <form id="form-change-password">
+              <div class="login-form-group">
+                <label for="pwd-current">Current Password</label>
+                <input type="password" id="pwd-current" class="login-form-input" required autocomplete="current-password">
+              </div>
+              <div class="login-form-group">
+                <label for="pwd-new">New Password (Min 8 Characters)</label>
+                <input type="password" id="pwd-new" class="login-form-input" minlength="8" required autocomplete="new-password">
+              </div>
+              <div class="login-form-group">
+                <label for="pwd-confirm">Confirm New Password</label>
+                <input type="password" id="pwd-confirm" class="login-form-input" minlength="8" required autocomplete="new-password">
+              </div>
+              <button class="dash-btn dash-btn-primary" type="submit" style="width: 100%;">
+                Update Password
+              </button>
+            </form>
+          </div>
+
+          <!-- Studio Profile Details Card -->
+          <div style="background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.5rem;">
+            <h3 style="font-size: 1.2rem; color: var(--ink); margin-bottom: 1rem;">Studio Contact Profile</h3>
+            <div style="font-size: 0.95rem; line-height: 1.7; color: var(--ink);">
+              <p><strong>Studio Founder:</strong> Bhuvaneshwari</p>
+              <p><strong>Official Phone:</strong> +91 63740 36629</p>
+              <p><strong>WhatsApp:</strong> +91 63740 36629</p>
+              <p><strong>Location:</strong> Erumbalai, Steel Plant Road, Salem, Tamil Nadu</p>
+              <p><strong>Instagram:</strong> @__itz_berry_</p>
+              <p><strong>Operational Hours:</strong> 8:00 AM &ndash; 8:00 PM (Muhurtham Timings by Appointment)</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Detail & Decision Modal -->
+  <div class="dash-modal-backdrop" id="booking-detail-modal" style="display: none;" role="dialog" aria-modal="true">
+    <div class="dash-modal-content">
+      <div class="dash-modal-header">
+        <div>
+          <h2 style="font-family:'Cormorant Garamond', serif; font-size:1.85rem; color:var(--burgundy);" id="detail-modal-title">
+            Booking Details
+          </h2>
+          <div style="font-size:0.9rem; color:var(--gold-dark);" id="detail-modal-sub">
+            Reference: BBS-2026-XXXXXX
+          </div>
+        </div>
+        <button class="dash-close-btn" id="btn-close-detail-modal" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="booking-detail-grid">
+        <!-- Left Column: Information -->
+        <div>
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--ink);">Customer &amp; Event</h3>
+          <div style="background: var(--ivory); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem; line-height: 1.6;" id="detail-customer-box">
+            <!-- Injected by JS -->
+          </div>
+
+          <h3 style="font-size: 1.1rem; margin: 1.25rem 0 0.75rem; color: var(--ink);">Selected Services &amp; Requirements</h3>
+          <div style="background: var(--ivory); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); font-size: 0.9rem; line-height: 1.6;" id="detail-services-box">
+            <!-- Injected by JS -->
+          </div>
+
+          <div style="margin-top: 1rem; padding: 0.85rem; border-radius: 8px; font-size: 0.9rem;" id="detail-consent-box">
+            <!-- WhatsApp Consent Status -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Decision Bar -->
+      <div class="booking-detail-actions" id="detail-action-buttons">
+        <button class="dash-btn dash-btn-danger" id="btn-trigger-reject">
+          <span>✕</span>
+          <span>Reject Booking</span>
+        </button>
+        <button class="dash-btn dash-btn-success" id="btn-trigger-approve">
+          <span>✓</span>
+          <span>Approve Booking</span>
+        </button>
+      </div>
+
+      <!-- Audit Trail Section -->
+      <div class="booking-detail-audit">
+        <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.5rem;">Audit Trail &amp; History</h4>
+        <div id="detail-audit-trail" style="font-size: 0.8rem; color: var(--ink-light); font-family: monospace;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rejection Reason Modal -->
+  <div class="dash-modal-backdrop" id="reject-reason-modal" style="display: none;" role="dialog" aria-modal="true">
+    <div class="dash-modal-content" style="max-width: 520px;">
+      <div class="dash-modal-header">
+        <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.6rem; color:var(--danger);">
+          Reject Booking Enquiry
+        </h3>
+        <button class="dash-close-btn" id="btn-close-reject-modal">&times;</button>
+      </div>
+
+      <p style="font-size: 0.9rem; color: var(--ink-light); margin-bottom: 1rem;">
+        Please specify the reason for declining this booking. If the customer opted into WhatsApp updates, the reason will be included in a prepared message for you to review and send.
+      </p>
+
+      <div class="login-form-group">
+        <label for="reject-reason-select">Select Reason</label>
+        <select id="reject-reason-select" class="login-form-input">
+          <option value="Requested event date is already fully booked">Requested event date is already fully booked</option>
+          <option value="Studio artists and artisans are unavailable on this date">Studio artists and artisans are unavailable on this date</option>
+          <option value="Venue location is outside our operational service area">Venue location is outside our operational service area</option>
+          <option value="Customer requested cancellation via phone">Customer requested cancellation via phone</option>
+          <option value="Custom">Other (Specify below)...</option>
+        </select>
+      </div>
+
+      <div class="login-form-group" id="custom-reason-wrap" style="display: none;">
+        <label for="reject-custom-reason">Custom Reason Details</label>
+        <textarea id="reject-custom-reason" class="login-form-input" rows="3" placeholder="Provide specific explanation for rejection..."></textarea>
+      </div>
+
+      <div class="login-form-group">
+        <label for="reject-internal-notes">Internal Studio Notes (Private)</label>
+        <input type="text" id="reject-internal-notes" class="login-form-input" placeholder="Optional internal notes for studio reference">
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+        <button class="dash-btn dash-btn-outline" id="btn-cancel-reject">Cancel</button>
+        <button class="dash-btn dash-btn-danger" id="btn-confirm-reject">
+          <span>Confirm Rejection</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Block Unavailable Date Modal -->
+  <div class="dash-modal-backdrop" id="block-date-modal" style="display: none;" role="dialog" aria-modal="true">
+    <div class="dash-modal-content" style="max-width: 480px;">
+      <div class="dash-modal-header">
+        <h3 style="font-family:'Cormorant Garamond', serif; font-size:1.5rem; color:var(--burgundy);">
+          Block Unavailable Date
+        </h3>
+        <button class="dash-close-btn" id="btn-close-block-modal">&times;</button>
+      </div>
+      <form id="form-block-date">
+        <div class="login-form-group">
+          <label for="block-date-val">Select Date to Block</label>
+          <input type="date" id="block-date-val" class="login-form-input" required>
+        </div>
+        <div class="login-form-group">
+          <label for="block-reason-val">Reason for Blocking</label>
+          <input type="text" id="block-reason-val" class="login-form-input" placeholder="e.g. Studio Maintenance / Family Event" required>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button class="dash-btn dash-btn-outline" id="btn-cancel-block" type="button">Cancel</button>
+          <button class="dash-btn dash-btn-danger" type="submit">Block Date</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/services-data.js"></script>
+  <script src="js/cloudflare-config.js"></script>
+  <script src="js/studio-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/13.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/13.0.0/firebase-messaging-compat.js"></script>
+  <script src="js/studio-dashboard.js?v=gallery-captions-20261123"></script>
+</body>
+
+</html>
