@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bhuvana-booking-api",
+  "main": "src/index.js",
+  "compatibility_date": "2024-11-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "preview_urls": false,
+  "triggers": { "crons": ["17 0 * * *"] },
+  "vars": {
+    "ENVIRONMENT": "production",
+    "CORS_ORIGINS": "https://boopathirajak2006.github.io,http://localhost:3000,http://127.0.0.1:3000,http://localhost:8080,http://127.0.0.1:8080,http://localhost:8787",
+    "CLOUDINARY_CLOUD_NAME": "hcj8r6r4",
+    "MAX_POSTER_SIZE_BYTES": "5242880",
+    "MAX_GALLERY_SIZE_BYTES": "5242880",
+    "WHATSAPP_API_VERSION": "v21.0",
+    "WHATSAPP_AUTOMATIC_SEND": "false"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bhuvana-bookings-db",
+      "database_id": "c33e932b-9a44-4002-ac5a-9dc47c45c227",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}
