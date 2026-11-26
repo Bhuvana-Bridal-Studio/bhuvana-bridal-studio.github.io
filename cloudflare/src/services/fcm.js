@@ -128,8 +128,7 @@ export class FCMService {
 
     const title = 'New Booking Received!';
     const body = 'A new customer booking enquiry has arrived. Tap to view it.';
-    const clickUrl = `https://boopathirajak2006.github.io/Bhuvana-Bridal-Studio/studio-inbox.html?ref=${encodeURIComponent(booking.booking_ref)}`;
-
+    const clickUrl = `https://bhuvana-bridal-studio.github.io/studio-inbox.html?ref=${encodeURIComponent(booking.booking_ref)}`;
     const accessToken = await this.getGoogleAccessToken(env);
     const projectId = env.FIREBASE_PROJECT_ID || this.getServiceAccount(env)?.project_id;
 
