@@ -14,7 +14,7 @@
 
   // Cloudflare Workers Production Endpoint
   // Exact deployed Worker URL: bhuvana-booking-api
-  const PRODUCTION_WORKER_URL = 'https://bhuvana-booking-api.boopathiraja-k2006.workers.dev';
+  const PRODUCTION_WORKER_URL = 'https://bhuvana-booking-api.bhuvibridalstudio-in.workers.dev';
   const LOCAL_WORKER_URL = 'http://localhost:8787';
 
   // Allow custom override via localStorage if needed
