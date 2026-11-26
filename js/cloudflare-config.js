@@ -79,13 +79,13 @@
     // Firebase's web app configuration is public client-side configuration.
     // The service-account private key remains only in Cloudflare Worker secrets.
     firebaseConfig: (typeof window !== 'undefined' && window.__ENV && window.__ENV.FIREBASE_CONFIG) || {
-      apiKey: 'AIzaSyADS-H04V46QEJWyJR-lr4ADYfm8IcOYQM',
-      authDomain: 'bhuvana-bridal-studio.firebaseapp.com',
-      projectId: 'bhuvana-bridal-studio',
-      storageBucket: 'bhuvana-bridal-studio.firebasestorage.app',
-      messagingSenderId: '718120895257',
-      appId: '1:718120895257:web:d33ccb0dd057ad6b98bb88',
-      measurementId: 'G-MNET3E3PEJ'
+      apiKey: 'AIzaSyCIQtjG-vxYWbsSKyIg8AvcT0NSbAAatSw',
+      authDomain: 'bhuvana-bridal-studio-8c408.firebaseapp.com',
+      projectId: 'bhuvana-bridal-studio-8c408',
+      storageBucket: 'bhuvana-bridal-studio-8c408.firebasestorage.app',
+      messagingSenderId: '573460283210',
+      appId: '1:573460283210:web:8bd95c14ace4a981f90bb3',
+      measurementId: 'G-TTH2P5FY8H'
     },
     firebaseVapidKey: 'BP6RVpehdvCwc7CE_EBga08vw-HAsnTN3puOdfG6jjU7cROx7bPSj_5ISHm3qKMV_afEVsV7wN_FTEbN6MiJUK0',
 
