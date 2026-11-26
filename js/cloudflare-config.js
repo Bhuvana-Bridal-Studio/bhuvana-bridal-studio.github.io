@@ -87,7 +87,7 @@
       appId: '1:718120895257:web:d33ccb0dd057ad6b98bb88',
       measurementId: 'G-MNET3E3PEJ'
     },
-    firebaseVapidKey: 'BAL5uMqlL9tIKLFXWO4gYSIEzIcWRg0IdACIYf96bikgVNUBmAaOXPuXo5rIZ1kxrLWhBrs29QSDQbTI2sBirQk',
+    firebaseVapidKey: 'BP6RVpehdvCwc7CE_EBga08vw-HAsnTN3puOdfG6jjU7cROx7bPSj_5ISHm3qKMV_afEVsV7wN_FTEbN6MiJUK0',
 
     isFirebaseConfigured: function () {
       return Boolean(
