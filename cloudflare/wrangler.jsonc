@@ -10,8 +10,8 @@
   "triggers": { "crons": ["17 0 * * *"] },
   "vars": {
     "ENVIRONMENT": "production",
-    "CORS_ORIGINS": "https://boopathirajak2006.github.io,http://localhost:3000,http://127.0.0.1:3000,http://localhost:8080,http://127.0.0.1:8080,http://localhost:8787",
-    "CLOUDINARY_CLOUD_NAME": "hcj8r6r4",
+    "CORS_ORIGINS": "https://bhuvana-bridal-studio.github.io,http://localhost:3000,http://127.0.0.1:3000,http://localhost:8080,http://127.0.0.1:8080,http://localhost:8787",
+    "CLOUDINARY_CLOUD_NAME": "qkteicsh",
     "MAX_POSTER_SIZE_BYTES": "5242880",
     "MAX_GALLERY_SIZE_BYTES": "5242880",
     "WHATSAPP_API_VERSION": "v21.0",
@@ -21,7 +21,7 @@
     {
       "binding": "DB",
       "database_name": "bhuvana-bookings-db",
-      "database_id": "c33e932b-9a44-4002-ac5a-9dc47c45c227",
+      "database_id": "c5522f06-72a9-446c-8b12-620ce66dbb8d",
       "migrations_dir": "migrations"
     }
   ],
