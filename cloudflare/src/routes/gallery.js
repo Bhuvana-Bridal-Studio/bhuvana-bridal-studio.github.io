@@ -2,8 +2,8 @@ import { jsonResponse, errorResponse } from '../utils/response.js';
 import { CloudinaryService } from '../services/cloudinary.js';
 
 const GALLERY_CATEGORIES = {
-  'bridal-beauty': new Set(['baby-shower', 'puberty-makeup', 'mehndi-design', 'wedding-makeup', 'party-makeup', 'engagement-makeup', 'reception-makeup', 'bridal-hairstyling', 'other-bridal']),
-  'designer-blouse': new Set(['bridal-blouse', 'maggam-work', 'aari-work', 'embroidery', 'sleeve-designs', 'neck-designs', 'other-blouse'])
+  'bridal-beauty': new Set(['baby-shower', 'puberty-makeup', 'wedding-makeup', 'party-makeup', 'engagement-makeup', 'reception-makeup', 'bridal-hairstyling', 'other-bridal']),
+  'designer-blouse': new Set(['bridal-blouse', 'aari-work'])
 };
 const validCategory = (category, subcategory) => GALLERY_CATEGORIES[category]?.has(subcategory);
 const asPhoto = row => ({

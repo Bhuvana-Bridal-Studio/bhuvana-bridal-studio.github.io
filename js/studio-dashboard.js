@@ -772,15 +772,14 @@
     'bridal-beauty': {
       label: 'Bridal & Beauty',
       categories: [
-        ['baby-shower', 'Baby Shower Makeup'], ['puberty-makeup', 'Puberty Makeup'], ['mehndi-design', 'Mehndi Design'], ['wedding-makeup', 'Wedding Makeup'], ['party-makeup', 'Party Makeup'],
+        ['baby-shower', 'Baby Shower Makeup'], ['puberty-makeup', 'Puberty Makeup'], ['wedding-makeup', 'Wedding Makeup'], ['party-makeup', 'Party Makeup'],
         ['engagement-makeup', 'Engagement Makeup'], ['reception-makeup', 'Reception Makeup'], ['bridal-hairstyling', 'Bridal Hairstyling'], ['other-bridal', 'Other Bridal Work']
       ]
     },
     'designer-blouse': {
       label: 'Designer Blouse',
       categories: [
-        ['bridal-blouse', 'Bridal Blouse Designs'], ['maggam-work', 'Maggam Work'], ['aari-work', 'Aari Work'],
-        ['embroidery', 'Embroidery Designs'], ['sleeve-designs', 'Sleeve Designs'], ['neck-designs', 'Neck Designs'], ['other-blouse', 'Other Blouse Work']
+        ['bridal-blouse', 'Bridal Blouse Designs'], ['aari-work', 'Aari Work']
       ]
     }
   };
@@ -848,7 +847,7 @@
       <article class="gallery-card-owner" data-gallery-card="${escapeHtml(photo.id)}" ${galleryArrangeMode ? 'draggable="true"' : ''}>
         ${galleryDeleteMode ? `<label class="gallery-select-photo"><input type="checkbox" data-gallery-select value="${escapeHtml(photo.id)}"><span>Select photo</span></label>` : ''}
         <img src="${escapeHtml(photo.image_url)}" alt="${escapeHtml(label + ' completed customer work')}" loading="lazy">
-        <div class="gallery-card-meta"><strong>${escapeHtml(`${label} photo ${index + 1}`)}</strong>
+        <div class="gallery-card-meta"><strong>${escapeHtml(photo.title || label)}</strong>
           ${galleryArrangeMode ? `<div class="gallery-order-actions"><button type="button" class="dash-btn dash-btn-outline" data-move-gallery="up" data-photo-id="${escapeHtml(photo.id)}" ${index === 0 ? 'disabled' : ''} aria-label="Move photo up">↑ Up</button><button type="button" class="dash-btn dash-btn-outline" data-move-gallery="down" data-photo-id="${escapeHtml(photo.id)}" ${index === photos.length - 1 ? 'disabled' : ''} aria-label="Move photo down">↓ Down</button><span>Position ${index + 1}</span></div>` : ''}
         </div>
       </article>`).join('') || `<p class="gallery-empty-owner">No photos in ${escapeHtml(label)} yet. Add up to 10 completed customer-work photos at a time.</p>`;
