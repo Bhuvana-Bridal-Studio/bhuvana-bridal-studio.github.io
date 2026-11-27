@@ -4,7 +4,7 @@
   const isBlouse = document.body.classList.contains('designer-blouse-page');
   const division = isBlouse ? 'designer-blouse' : 'bridal-beauty';
   const packageType = isBlouse ? 'designer-blouse' : 'bridal-beauty';
-  const phone = '916374036629';
+  const phone = '918220232209';
   const catalog = Object.values(window.BBS_CATALOG?.services || {}).filter(service => service.divisionId === division);
   const normalize = value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
   const encode = value => encodeURIComponent(value);

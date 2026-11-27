@@ -14,7 +14,7 @@
   const STORAGE_KEY_PACKAGE = 'bbs_package_type';
   const STORAGE_KEY_EVENT = 'bbs_event_details';
   const STORAGE_KEY_CUSTOMIZATION = 'bbs_customization_details';
-  const ARTIST_WHATSAPP_NUMBER = '916374036629';
+  const ARTIST_WHATSAPP_NUMBER = '918220232209';
 
   // Safe Storage access with in-memory fallback
   const memStore = {};

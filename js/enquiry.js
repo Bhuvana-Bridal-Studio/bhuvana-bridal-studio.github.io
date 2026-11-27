@@ -3,13 +3,13 @@
  * Supports:
  * 1. Bridal & Beauty Studio Enquiries
  * 2. Designer Blouse Studio Enquiries
- * Target Artist WhatsApp: +91 63740 36629 (916374036629)
+ * Target Artist WhatsApp: +91 82202 32209 (918220232209)
  */
 
 (function () {
   'use strict';
 
-  const ARTIST_WHATSAPP_NUMBER = "916374036629";
+  const ARTIST_WHATSAPP_NUMBER = "918220232209";
 
   function formatDate(isoStr) {
     if (!isoStr) return '';
