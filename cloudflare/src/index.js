@@ -34,7 +34,6 @@ import {
 import { handlePublicGallery, handleOwnerGalleryList, handleOwnerGalleryUpload, handleOwnerGalleryDelete, handleOwnerGalleryArrangement } from './routes/gallery.js';
 import { handlePublicContent, handleOwnerContent } from './routes/content.js';
 import { handlePublicServices, handleOwnerServices, handleOwnerServiceSave, handleOwnerServiceDelete } from './routes/services.js';
-import { handlePublicServices, handleOwnerServices, handleOwnerServiceSave, handleOwnerServiceDelete } from './routes/services.js';
 import { D1Service } from './services/d1.js';
 
 export default {
@@ -88,8 +87,6 @@ export default {
       if (path === '/api/bookings/submit' && method === 'POST') {
         return await handleSubmitBooking(request, env);
       }
-
-      if (path === '/api/services' && method === 'GET') return await handlePublicServices(request, env);
 
       // Backwards-compatible route used by the current website frontend.
       if (path === '/api/bookings' && method === 'POST') {
