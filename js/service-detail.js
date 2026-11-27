@@ -40,8 +40,13 @@
     if (pricingDisplayEl) pricingDisplayEl.textContent = service.pricingDisplay;
     if (pricingNoteEl) pricingNoteEl.textContent = service.pricingNote;
     if (imgEl) {
-      imgEl.src = service.image;
-      imgEl.alt = service.title + ' — Bhuvana Bridal Studio Salem';
+      if (service.image) {
+        imgEl.src = service.image;
+        imgEl.alt = service.title + ' — Bhuvana Bridal Studio Salem';
+        imgEl.hidden = false;
+      } else {
+        imgEl.hidden = true;
+      }
     }
 
     // Modal elements

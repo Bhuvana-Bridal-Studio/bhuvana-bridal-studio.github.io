@@ -614,6 +614,11 @@
       if(description)description.textContent=service.summary||service.description||'';
       const price=card.querySelector('.price-box');
       if(price)price.textContent=service.pricingDisplay||'Request a Quote';
+      if(service.imagePublicId && service.image) {
+        let image=card.querySelector('img.service-card-img');
+        if(!image){image=document.createElement('img');image.className='service-card-img';image.loading='lazy';card.insertBefore(image,card.firstChild);}
+        if(image.getAttribute('src')!==service.image) image.src=service.image;image.alt=service.title;image.loading='lazy';
+      }
       const book=card.querySelector('a[href*="select-service.html"]');
       if(book){book.href='service-detail.html?id='+encodeURIComponent(id);book.textContent='View '+service.title;}
     });
@@ -629,11 +634,24 @@
         const safeId=service.id.replace(/[^a-z0-9-]/g,'');
         let card=grid.querySelector('[data-custom-service-id="'+safeId+'"]');
         if(!card){card=document.createElement('article');card.className='service-card';card.dataset.customServiceId=safeId;grid.appendChild(card);}
-        card.innerHTML='<h3></h3><p class="desc"></p><div class="price-box"></div><a class="btn sm"></a>';
-        card.querySelector('h3').textContent=service.title;
-        card.querySelector('.desc').textContent=service.description||'';
-        card.querySelector('.price-box').textContent=service.pricingDisplay||'Request a Quote';
-        const link=card.querySelector('a');link.href='service-detail.html?id='+encodeURIComponent(service.id);link.textContent='View '+service.title;
+        let image=card.querySelector('img.service-card-img');
+        if(service.imagePublicId && service.image) {
+          if(!image){image=document.createElement('img');image.className='service-card-img';image.loading='lazy';card.insertBefore(image,card.firstChild);}
+          if(image.getAttribute('src')!==service.image) image.src=service.image;
+          image.alt=service.title;
+        } else if(image) image.remove();
+        let heading=card.querySelector('h3');
+        if(!heading){heading=document.createElement('h3');card.appendChild(heading);}
+        heading.textContent=service.title;
+        let description=card.querySelector('.desc');
+        if(!description){description=document.createElement('p');description.className='desc';card.appendChild(description);}
+        description.textContent=service.description||'';
+        let price=card.querySelector('.price-box');
+        if(!price){price=document.createElement('div');price.className='price-box';card.appendChild(price);}
+        price.textContent=service.pricingDisplay||'Request a Quote';
+        let link=card.querySelector('a');
+        if(!link){link=document.createElement('a');link.className='btn sm';card.appendChild(link);}
+        link.href='service-detail.html?id='+encodeURIComponent(service.id);link.textContent='View '+service.title;
       });
     document.querySelectorAll('[data-custom-service-id]').forEach(card=>{card.hidden=deletedServiceIds.has(card.dataset.customServiceId);});
   }

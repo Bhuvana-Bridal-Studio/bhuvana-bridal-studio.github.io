@@ -175,6 +175,12 @@
       document.getElementById('service-title-input').value=item.title;
       document.getElementById('service-description-input').value=item.description||'';
       document.getElementById('service-price-input').value=item.pricingDisplay||'';
+      document.getElementById('service-image-input').value='';
+      setServiceImagePreview(item.image||'');
+    });
+    document.getElementById('service-image-input')?.addEventListener('change', event => {
+      const file=event.target.files?.[0];
+      if(file) setServiceImagePreview(URL.createObjectURL(file));
     });
     document.getElementById('form-service-editor')?.addEventListener('submit', saveServiceFromEditor);
     document.getElementById('btn-close-service-editor')?.addEventListener('click', closeServiceEditor);
@@ -765,6 +771,14 @@
     const options = servicesCache.map(s => `<option value="${escapeHtml(s.id)}">${escapeHtml(s.title)} — ${escapeHtml(s.division || '')}</option>`).join('');
     ['service-existing-select','service-delete-select'].forEach(id => { const el=document.getElementById(id); if(el) el.innerHTML=options; });
   }
+  function setServiceImagePreview(src) {
+    const preview = document.getElementById('service-image-preview');
+    if (!preview) return;
+    preview.src = src || '';
+    preview.hidden = !src;
+    preview.style.display = src ? 'block' : 'none';
+  }
+
   function openServiceEditor(mode) {
     const form=document.getElementById('form-service-editor'), modal=document.getElementById('service-editor-modal');
     if(!form||!modal)return;
@@ -779,6 +793,8 @@
     document.getElementById('service-title-input').value=mode==='edit'?(first?.title||''):'';
     document.getElementById('service-description-input').value=mode==='edit'?(first?.description||''):'';
     document.getElementById('service-price-input').value=mode==='edit'?(first?.pricingDisplay||''):'';
+    document.getElementById('service-image-input').value='';
+    setServiceImagePreview(mode==='edit'?(first?.image||''):'');
     modal.style.display='flex';
   }
   function closeServiceEditor(){ const el=document.getElementById('service-editor-modal'); if(el)el.style.display='none'; }
@@ -795,6 +811,7 @@
     const divisionId=mode==='add'?document.getElementById('service-division-select').value:existing?.divisionId;
     const slug=title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,45)||'custom-service';
     const id=mode==='add'?slug+'-'+Date.now().toString(36):selectedId;
+    const imageFile=document.getElementById('service-image-input')?.files?.[0]||null;
     const service={...(existing||{}),id,title,description,summary:description,tagline:description,pricingDisplay,divisionId,
       division:divisionId==='designer-blouse'?'Designer Blouse Studio':'Bridal & Beauty Studio',
       category:existing?.category||'Custom Services',categoryId:existing?.categoryId||'custom-services',
@@ -803,8 +820,22 @@
       featured:existing?.featured||false,requirementsType:existing?.requirementsType||'general'};
     button.disabled=true; status.textContent='Saving service…';
     try {
-      const result=await config.apiFetch('/api/admin/services/'+encodeURIComponent(id),{method:'PUT',body:JSON.stringify({service})});
-      window.BBS_CATALOG?.applyOverrides?.([{id,service:result.service||service,deleted:false}]);
+      let result=await config.apiFetch('/api/admin/services/'+encodeURIComponent(id),{method:'PUT',body:JSON.stringify({service})});
+      let savedService=result.service||service;
+      if(imageFile) {
+        const upload=new FormData();
+        upload.append('photo',imageFile);
+        try {
+          const imageResult=await config.apiFetch('/api/admin/services/'+encodeURIComponent(id)+'/image',{method:'POST',body:upload});
+          savedService=imageResult.service||savedService;
+        } catch(imageError) {
+          window.BBS_CATALOG?.applyOverrides?.([{id,service:savedService,deleted:false}]);
+          refreshServiceCatalog();
+          status.textContent='Service details saved, but image upload failed: '+imageError.message;
+          return;
+        }
+      }
+      window.BBS_CATALOG?.applyOverrides?.([{id,service:savedService,deleted:false}]);
       refreshServiceCatalog(); status.textContent='Saved. Customer pages update automatically.';
       setTimeout(closeServiceEditor,700);
     } catch(err){status.textContent='Could not save: '+err.message;}

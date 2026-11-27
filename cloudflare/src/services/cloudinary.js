@@ -53,6 +53,27 @@ export class CloudinaryService {
     return { public_id: result.public_id, secure_url: result.secure_url };
   }
 
+  static async uploadServiceImage(env, serviceId, arrayBuffer, mimeType) {
+    const { CLOUDINARY_CLOUD_NAME: cloudName, CLOUDINARY_API_KEY: apiKey, CLOUDINARY_API_SECRET: apiSecret } = env;
+    if ([cloudName, apiKey, apiSecret].some(value => this.isPlaceholder(value))) {
+      throw new Error('Cloudinary service image credentials are not configured');
+    }
+    const timestamp = Math.floor(Date.now() / 1000);
+    const publicId = `bhuvana_services/${serviceId}/${crypto.randomUUID()}`;
+    const params = { public_id: publicId, timestamp: String(timestamp) };
+    const signature = await this.generateApiSignature(params, apiSecret);
+    const form = new FormData();
+    form.append('file', new Blob([arrayBuffer], { type: mimeType }), publicId.split('/').pop());
+    form.append('api_key', apiKey);
+    form.append('timestamp', String(timestamp));
+    form.append('public_id', publicId);
+    form.append('signature', signature);
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, { method: 'POST', body: form });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error?.message || `Cloudinary service image upload failed (${response.status})`);
+    return { public_id: result.public_id, secure_url: result.secure_url };
+  }
+
   static async deleteGalleryPhoto(env, publicId) {
     const { CLOUDINARY_CLOUD_NAME: cloudName, CLOUDINARY_API_KEY: apiKey, CLOUDINARY_API_SECRET: apiSecret } = env;
     if ([cloudName, apiKey, apiSecret].some(value => this.isPlaceholder(value))) {

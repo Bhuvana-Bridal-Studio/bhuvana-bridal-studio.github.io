@@ -33,7 +33,7 @@ import {
 } from './routes/whatsapp.js';
 import { handlePublicGallery, handleOwnerGalleryList, handleOwnerGalleryUpload, handleOwnerGalleryDelete, handleOwnerGalleryArrangement } from './routes/gallery.js';
 import { handlePublicContent, handleOwnerContent } from './routes/content.js';
-import { handlePublicServices, handleOwnerServices, handleOwnerServiceSave, handleOwnerServiceDelete } from './routes/services.js';
+import { handlePublicServices, handleOwnerServices, handleOwnerServiceSave, handleOwnerServiceDelete, handleOwnerServiceImageUpload } from './routes/services.js';
 import { D1Service } from './services/d1.js';
 
 export default {
@@ -142,6 +142,8 @@ export default {
         if (path === '/api/admin/gallery/arrangement' && method === 'PUT') return await handleOwnerGalleryArrangement(request, env, auth);
         if (path === '/api/admin/content' && ['GET', 'PUT'].includes(method)) return await handleOwnerContent(request, env, auth);
         if (path === '/api/admin/services' && method === 'GET') return await handleOwnerServices(request, env, auth);
+        const serviceImageMatch = path.match(/^\/api\/admin\/services\/([a-z0-9-]+)\/image$/i);
+        if (serviceImageMatch && method === 'POST') return await handleOwnerServiceImageUpload(request, env, serviceImageMatch[1]);
         const serviceMatch = path.match(/^\/api\/admin\/services\/([a-z0-9-]+)$/i);
         if (serviceMatch && method === 'PUT') return await handleOwnerServiceSave(request, env, auth, serviceMatch[1]);
         if (serviceMatch && method === 'DELETE') return await handleOwnerServiceDelete(request, env, auth, serviceMatch[1]);
