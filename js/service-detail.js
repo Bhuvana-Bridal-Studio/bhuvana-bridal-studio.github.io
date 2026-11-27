@@ -6,7 +6,8 @@
 (function () {
   'use strict';
 
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', async function () {
+    await window.BBS_CATALOG?.ready;
     const params = new URLSearchParams(window.location.search);
     const serviceId = params.get('id') || 'bridal-makeup';
     const service = window.BBS_CATALOG ? window.BBS_CATALOG.getById(serviceId) : null;

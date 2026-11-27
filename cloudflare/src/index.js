@@ -33,6 +33,8 @@ import {
 } from './routes/whatsapp.js';
 import { handlePublicGallery, handleOwnerGalleryList, handleOwnerGalleryUpload, handleOwnerGalleryDelete, handleOwnerGalleryArrangement } from './routes/gallery.js';
 import { handlePublicContent, handleOwnerContent } from './routes/content.js';
+import { handlePublicServices, handleOwnerServices, handleOwnerServiceSave, handleOwnerServiceDelete } from './routes/services.js';
+import { handlePublicServices, handleOwnerServices, handleOwnerServiceSave, handleOwnerServiceDelete } from './routes/services.js';
 import { D1Service } from './services/d1.js';
 
 export default {
@@ -74,6 +76,7 @@ export default {
 
       if (path === '/api/gallery' && method === 'GET') return await handlePublicGallery(request, env);
       if (path === '/api/content' && method === 'GET') return await handlePublicContent(request, env);
+      if (path === '/api/services' && method === 'GET') return await handlePublicServices(request, env);
 
       // -------------------------------------------------------------
       // Public Booking Endpoints (Customer Facing)
@@ -85,6 +88,8 @@ export default {
       if (path === '/api/bookings/submit' && method === 'POST') {
         return await handleSubmitBooking(request, env);
       }
+
+      if (path === '/api/services' && method === 'GET') return await handlePublicServices(request, env);
 
       // Backwards-compatible route used by the current website frontend.
       if (path === '/api/bookings' && method === 'POST') {
@@ -139,6 +144,10 @@ export default {
         if (path === '/api/admin/gallery/photo' && method === 'DELETE') return await handleOwnerGalleryDelete(request, env, auth);
         if (path === '/api/admin/gallery/arrangement' && method === 'PUT') return await handleOwnerGalleryArrangement(request, env, auth);
         if (path === '/api/admin/content' && ['GET', 'PUT'].includes(method)) return await handleOwnerContent(request, env, auth);
+        if (path === '/api/admin/services' && method === 'GET') return await handleOwnerServices(request, env, auth);
+        const serviceMatch = path.match(/^\/api\/admin\/services\/([a-z0-9-]+)$/i);
+        if (serviceMatch && method === 'PUT') return await handleOwnerServiceSave(request, env, auth, serviceMatch[1]);
+        if (serviceMatch && method === 'DELETE') return await handleOwnerServiceDelete(request, env, auth, serviceMatch[1]);
 
         if (path === '/api/admin/change-password' && method === 'POST') {
           return await handleChangePassword(request, env, auth);

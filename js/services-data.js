@@ -561,26 +561,114 @@
     }
   };
 
+  const deletedServiceIds = new Set();
+  const overriddenServiceIds = new Set();
+  const DEFAULT_SERVICE_IDS = new Set(Object.keys(SERVICES));
+  let serviceRefreshTimer = null;
+
+  function applyOverrides(rows) {
+    (Array.isArray(rows) ? rows : []).forEach(function(row) {
+      const id=String(row?.id || row?.service?.id || '').toLowerCase();
+      if(!id) return;
+      const prior=SERVICES[id];
+      if(prior && typeof document !== 'undefined') {
+        document.querySelectorAll('.service-card').forEach(function(card) {
+          const heading=card.querySelector('h3,h4');
+          if(heading && heading.textContent.trim()===prior.title) card.dataset.serviceCatalogId=id;
+        });
+      }
+      overriddenServiceIds.add(id);
+      if(row.deleted) { deletedServiceIds.add(id); return; }
+      if(!row.service || typeof row.service!=='object') return;
+      deletedServiceIds.delete(id);
+      SERVICES[id]=Object.assign({},prior||{},row.service,{id,__custom:!DEFAULT_SERVICE_IDS.has(id)});
+    });
+    if(typeof document!=='undefined') renderCatalogOnPage();
+    if(typeof root.dispatchEvent==='function' && typeof CustomEvent!=='undefined') root.dispatchEvent(new CustomEvent('bbs:catalog-updated'));
+  }
+
+  function getPublicOverrides() {
+    const config=root.BBS_CONFIG;
+    if(!config || typeof config.url!=='function') return Promise.resolve([]);
+    return fetch(config.url('/api/services'),{cache:'no-store',headers:{Accept:'application/json'}})
+      .then(response=>{if(!response.ok)throw new Error('HTTP '+response.status);return response.json();})
+      .then(data=>Array.isArray(data.services)?data.services:[])
+      .catch(error=>{console.warn('[BBS_CATALOG] Live service refresh unavailable:',error);return [];});
+  }
+
+  function renderCatalogOnPage() {
+    const list=Object.values(SERVICES);
+    document.querySelectorAll('.service-card').forEach(function(card) {
+      const heading=card.querySelector('h3,h4');
+      const id=card.dataset.serviceCatalogId ||
+        (heading && list.find(service=>service.title===heading.textContent.trim())?.id);
+      if(!id)return;
+      card.dataset.serviceCatalogId=id;
+      if(deletedServiceIds.has(id)){card.hidden=true;return;}
+      if(!overriddenServiceIds.has(id))return;
+      const service=SERVICES[id];
+      if(!service){card.hidden=true;return;}
+      card.hidden=false;
+      if(heading)heading.textContent=service.title;
+      const description=card.querySelector('.desc');
+      if(description)description.textContent=service.summary||service.description||'';
+      const price=card.querySelector('.price-box');
+      if(price)price.textContent=service.pricingDisplay||'Request a Quote';
+      const book=card.querySelector('a[href*="select-service.html"]');
+      if(book){book.href='service-detail.html?id='+encodeURIComponent(id);book.textContent='View '+service.title;}
+    });
+
+    const body=document.body;
+    const grid=(body.classList.contains('bridal-beauty-page')||body.classList.contains('designer-blouse-page'))
+      ?document.querySelector('.cards-grid'):null;
+    if(!grid)return;
+    list.filter(service=>service.__custom && overriddenServiceIds.has(service.id) && !deletedServiceIds.has(service.id) &&
+      ((body.classList.contains('designer-blouse-page')&&service.divisionId==='designer-blouse')||
+       (body.classList.contains('bridal-beauty-page')&&service.divisionId==='bridal-beauty')))
+      .forEach(function(service) {
+        const safeId=service.id.replace(/[^a-z0-9-]/g,'');
+        let card=grid.querySelector('[data-custom-service-id="'+safeId+'"]');
+        if(!card){card=document.createElement('article');card.className='service-card';card.dataset.customServiceId=safeId;grid.appendChild(card);}
+        card.innerHTML='<h3></h3><p class="desc"></p><div class="price-box"></div><a class="btn sm"></a>';
+        card.querySelector('h3').textContent=service.title;
+        card.querySelector('.desc').textContent=service.description||'';
+        card.querySelector('.price-box').textContent=service.pricingDisplay||'Request a Quote';
+        const link=card.querySelector('a');link.href='service-detail.html?id='+encodeURIComponent(service.id);link.textContent='View '+service.title;
+      });
+    document.querySelectorAll('[data-custom-service-id]').forEach(card=>{card.hidden=deletedServiceIds.has(card.dataset.customServiceId);});
+  }
+
+  const catalogReady=new Promise(function(resolve) {
+    const load=()=>getPublicOverrides().then(rows=>{applyOverrides(rows);resolve();});
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',load,{once:true});
+    else load();
+  });
+  const startRefresh=()=>{if(!serviceRefreshTimer)serviceRefreshTimer=setInterval(()=>getPublicOverrides().then(applyOverrides),30000);};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startRefresh,{once:true});
+  else startRefresh();
+
   // Helper Functions
   function getAllServices() {
-    return Object.values(SERVICES);
+    return Object.values(SERVICES).filter(service => !deletedServiceIds.has(service.id));
   }
 
   function getService(id) {
-    return SERVICES[id] || null;
+    return deletedServiceIds.has(id) ? null : (SERVICES[id] || null);
   }
 
   function getServicesByDivision(divisionId) {
-    return Object.values(SERVICES).filter(s => s.divisionId === divisionId);
+    return Object.values(SERVICES).filter(s => s.divisionId === divisionId && !deletedServiceIds.has(s.id));
   }
 
   function getServicesByCategory(categoryId) {
-    return Object.values(SERVICES).filter(s => s.categoryId === categoryId);
+    return Object.values(SERVICES).filter(s => s.categoryId === categoryId && !deletedServiceIds.has(s.id));
   }
 
   // Export to global scope
   root.BBS_CATALOG = {
     services: SERVICES,
+    ready: catalogReady,
+    applyOverrides,
     getAll: getAllServices,
     getById: getService,
     getByDivision: getServicesByDivision,

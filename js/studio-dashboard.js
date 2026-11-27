@@ -56,7 +56,7 @@
     setupOwnerHeader();
     setupNavigationTabs();
     setupEventListeners();
-    initServicesCatalog();
+    await initServicesCatalog();
     await loadMetrics();
     await loadBookings();
     renderOverview();
@@ -160,6 +160,28 @@
         loadBookings();
       });
     });
+
+    document.querySelectorAll('.service-div-filter').forEach(tab => tab.addEventListener('click', () => {
+      document.querySelectorAll('.service-div-filter').forEach(item => item.classList.remove('active'));
+      tab.classList.add('active'); renderServices(tab.dataset.div || 'all');
+    }));
+    document.getElementById('btn-add-service')?.addEventListener('click', () => openServiceEditor('add'));
+    document.getElementById('btn-edit-service')?.addEventListener('click', () => openServiceEditor('edit'));
+    document.getElementById('btn-delete-service')?.addEventListener('click', () => {
+      populateServiceSelects(); const modal=document.getElementById('service-delete-modal'); if(modal)modal.style.display='flex';
+    });
+    document.getElementById('service-existing-select')?.addEventListener('change', event => {
+      const item=servicesCache.find(s=>s.id===event.target.value); if(!item)return;
+      document.getElementById('service-title-input').value=item.title;
+      document.getElementById('service-description-input').value=item.description||'';
+      document.getElementById('service-price-input').value=item.pricingDisplay||'';
+    });
+    document.getElementById('form-service-editor')?.addEventListener('submit', saveServiceFromEditor);
+    document.getElementById('btn-close-service-editor')?.addEventListener('click', closeServiceEditor);
+    document.getElementById('btn-cancel-service-editor')?.addEventListener('click', closeServiceEditor);
+    document.getElementById('btn-close-service-delete')?.addEventListener('click', () => { document.getElementById('service-delete-modal').style.display='none'; });
+    document.getElementById('btn-cancel-service-delete')?.addEventListener('click', () => { document.getElementById('service-delete-modal').style.display='none'; });
+    document.getElementById('btn-confirm-service-delete')?.addEventListener('click', deleteServiceFromCatalog);
 
     // Search input (with 300ms debounce)
     const searchInput = document.getElementById('dash-search-input');
@@ -724,10 +746,83 @@
   // ==========================================
   // SECTION 5: SERVICES & PRICING
   // ==========================================
-  function initServicesCatalog() {
-    if (window.BBS_CATALOG && window.BBS_CATALOG.services) {
-      servicesCache = Object.values(window.BBS_CATALOG.services);
-    }
+  async function initServicesCatalog() {
+    try {
+      await window.BBS_CATALOG?.ready;
+      const result = await config.apiFetch('/api/admin/services', { cache: 'no-store' });
+      window.BBS_CATALOG?.applyOverrides?.(result.services || []);
+    } catch (err) { console.warn('[Services] Could not load saved service changes:', err); }
+    servicesCache = window.BBS_CATALOG ? window.BBS_CATALOG.getAll() : [];
+    renderServices('all');
+    populateServiceSelects();
+  }
+  function refreshServiceCatalog() {
+    servicesCache = window.BBS_CATALOG ? window.BBS_CATALOG.getAll() : [];
+    renderServices(document.querySelector('.service-div-filter.active')?.dataset.div || 'all');
+    populateServiceSelects();
+  }
+  function populateServiceSelects() {
+    const options = servicesCache.map(s => `<option value="${escapeHtml(s.id)}">${escapeHtml(s.title)} — ${escapeHtml(s.division || '')}</option>`).join('');
+    ['service-existing-select','service-delete-select'].forEach(id => { const el=document.getElementById(id); if(el) el.innerHTML=options; });
+  }
+  function openServiceEditor(mode) {
+    const form=document.getElementById('form-service-editor'), modal=document.getElementById('service-editor-modal');
+    if(!form||!modal)return;
+    form.dataset.mode=mode; form.dataset.serviceId='';
+    document.getElementById('service-editor-heading').textContent=mode==='add'?'Add New Service':'Edit Service';
+    document.getElementById('service-existing-group').style.display=mode==='add'?'none':'';
+    document.getElementById('service-division-group').style.display=mode==='add'?'':'none';
+    document.getElementById('service-editor-status').textContent='';
+    populateServiceSelects();
+    const first=servicesCache[0];
+    document.getElementById('service-existing-select').value=first?.id||'';
+    document.getElementById('service-title-input').value=mode==='edit'?(first?.title||''):'';
+    document.getElementById('service-description-input').value=mode==='edit'?(first?.description||''):'';
+    document.getElementById('service-price-input').value=mode==='edit'?(first?.pricingDisplay||''):'';
+    modal.style.display='flex';
+  }
+  function closeServiceEditor(){ const el=document.getElementById('service-editor-modal'); if(el)el.style.display='none'; }
+  async function saveServiceFromEditor(event) {
+    event.preventDefault();
+    const form=event.currentTarget, mode=form.dataset.mode||'edit';
+    const status=document.getElementById('service-editor-status'), button=document.getElementById('btn-save-service');
+    const selectedId=mode==='add'?'':document.getElementById('service-existing-select').value;
+    const existing=servicesCache.find(s=>s.id===selectedId);
+    const title=document.getElementById('service-title-input').value.trim();
+    const description=document.getElementById('service-description-input').value.trim();
+    const pricingDisplay=document.getElementById('service-price-input').value.trim();
+    if(!title||!description||!pricingDisplay){status.textContent='Enter the service name, description, and price.';return;}
+    const divisionId=mode==='add'?document.getElementById('service-division-select').value:existing?.divisionId;
+    const slug=title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,45)||'custom-service';
+    const id=mode==='add'?slug+'-'+Date.now().toString(36):selectedId;
+    const service={...(existing||{}),id,title,description,summary:description,tagline:description,pricingDisplay,divisionId,
+      division:divisionId==='designer-blouse'?'Designer Blouse Studio':'Bridal & Beauty Studio',
+      category:existing?.category||'Custom Services',categoryId:existing?.categoryId||'custom-services',
+      categoryPage:divisionId==='designer-blouse'?'designer-blouse.html':'bridal-beauty.html',pricingType:existing?.pricingType||'quote',
+      pricingNote:existing?.pricingNote||'',priceOptions:existing?.priceOptions||[],image:existing?.image||'',
+      featured:existing?.featured||false,requirementsType:existing?.requirementsType||'general'};
+    button.disabled=true; status.textContent='Saving service…';
+    try {
+      const result=await config.apiFetch('/api/admin/services/'+encodeURIComponent(id),{method:'PUT',body:JSON.stringify({service})});
+      window.BBS_CATALOG?.applyOverrides?.([{id,service:result.service||service,deleted:false}]);
+      refreshServiceCatalog(); status.textContent='Saved. Customer pages update automatically.';
+      setTimeout(closeServiceEditor,700);
+    } catch(err){status.textContent='Could not save: '+err.message;}
+    finally{button.disabled=false;}
+  }
+  async function deleteServiceFromCatalog() {
+    const id=document.getElementById('service-delete-select')?.value, status=document.getElementById('service-delete-status'), button=document.getElementById('btn-confirm-service-delete');
+    if(!id){status.textContent='Choose a service first.';return;}
+    const service=servicesCache.find(s=>s.id===id);
+    if(!service||!confirm('Delete “'+service.title+'” from the customer website and booking options?'))return;
+    button.disabled=true; status.textContent='Deleting service…';
+    try {
+      await config.apiFetch('/api/admin/services/'+encodeURIComponent(id),{method:'DELETE'});
+      window.BBS_CATALOG?.applyOverrides?.([{id,service,deleted:true}]); refreshServiceCatalog();
+      status.textContent='Service deleted from the customer catalog.';
+      setTimeout(()=>{document.getElementById('service-delete-modal').style.display='none';},700);
+    } catch(err){status.textContent='Could not delete: '+err.message;}
+    finally{button.disabled=false;}
   }
 
   function renderServices(divisionFilter = 'all') {
