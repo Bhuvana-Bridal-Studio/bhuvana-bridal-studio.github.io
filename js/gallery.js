@@ -21,14 +21,17 @@
     try {
       const result = await window.BBS_CONFIG.apiFetch(`/api/gallery?category=${encodeURIComponent(division)}`);
       const photos = (result.photos || []).filter(photo => photo.category === division);
-      root.innerHTML = categories.map(([subcategory, label], index) => {
+      const visibleCategories = categories.flatMap(([subcategory, label]) => {
         const items = photos.filter(photo => photo.subcategory === subcategory).sort((a, b) => Number(a.sort_order) - Number(b.sort_order));
-        if (!items.length) return '';
-        return `<section class="gallery-category-section" id="gallery-${escapeHtml(subcategory)}" aria-labelledby="gallery-title-${index + 1}">
-          <div class="gallery-category-heading"><h2 id="gallery-title-${index + 1}">${escapeHtml(label)}</h2></div>
+        return items.length ? [{ subcategory, label, items }] : [];
+      });
+      root.innerHTML = visibleCategories.map(({ subcategory, label, items }, index) => {
+        const headingId = `gallery-title-${index + 1}`;
+        return `<section class="gallery-category-section" id="gallery-${escapeHtml(subcategory)}" aria-labelledby="${headingId}">
+          <div class="gallery-category-heading"><span class="eyebrow">Category ${String(index + 1).padStart(2, '0')}</span><h2 id="${headingId}">${escapeHtml(label)}</h2></div>
           <div class="gallery-grid">${items.map((photo, photoIndex) => {
-            const caption = String(photo.title || label).trim();
-            return `<button type="button" class="gallery-photo-button" data-gallery-photo="${escapeHtml(photo.id || `${subcategory}-${photoIndex}`)}" data-gallery-caption="${escapeHtml(caption)}" aria-label="View ${escapeHtml(caption)}"><img class="gallery-item-img" src="${escapeHtml(photo.image_url)}" alt="${escapeHtml(caption)}" loading="lazy"><span class="gallery-caption">${escapeHtml(caption)}</span></button>`;
+            const caption = `${label} completed customer work`;
+            return `<button type="button" class="gallery-photo-button" data-gallery-photo="${escapeHtml(photo.id || `${subcategory}-${photoIndex}`)}" data-gallery-caption="${escapeHtml(caption)}" aria-label="View ${escapeHtml(caption)}"><img class="gallery-item-img" src="${escapeHtml(photo.image_url)}" alt="${escapeHtml(caption)}" loading="lazy"></button>`;
           }).join('')}</div>
         </section>`;
       }).join('');
