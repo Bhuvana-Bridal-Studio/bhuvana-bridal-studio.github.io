@@ -225,22 +225,31 @@
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    const steps = [
-      { step: 1, label: 'Personal Details' },
-      { step: 2, label: 'Event Details' },
-      { step: 3, label: 'Service Details' },
-      { step: 4, label: 'Customization' },
-      { step: 5, label: 'Review & Confirm' }
-    ];
+    const blouseOnly = getPackageType() === 'designer-blouse';
+    const steps = blouseOnly
+      ? [
+          { step: 1, label: 'Personal Details' },
+          { step: 3, label: 'Service Details' },
+          { step: 4, label: 'Customization' },
+          { step: 5, label: 'Review & Confirm' }
+        ]
+      : [
+          { step: 1, label: 'Personal Details' },
+          { step: 2, label: 'Event Details' },
+          { step: 3, label: 'Service Details' },
+          { step: 4, label: 'Customization' },
+          { step: 5, label: 'Review & Confirm' }
+        ];
 
     let html = '<div class="booking-progress"><div class="booking-steps">';
-    steps.forEach(s => {
-      const isCompleted = s.step < currentStep;
-      const isActive = s.step === currentStep;
+    const activePosition = steps.findIndex(s => s.step === currentStep);
+    steps.forEach((s, index) => {
+      const isCompleted = index < activePosition;
+      const isActive = index === activePosition;
       const stateClass = isCompleted ? 'completed' : isActive ? 'active' : '';
       html += `
         <div class="step-item ${stateClass}">
-          <div class="step-bubble">${isCompleted ? '✓' : s.step}</div>
+          <div class="step-bubble">${isCompleted ? '✓' : index + 1}</div>
           <span class="step-text">${s.label}</span>
         </div>
       `;

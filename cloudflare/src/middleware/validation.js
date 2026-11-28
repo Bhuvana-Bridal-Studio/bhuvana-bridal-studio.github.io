@@ -35,17 +35,21 @@ export function validateBookingReservation(body) {
     errors.push('Customer WhatsApp number must contain a valid 10 to 15 digit telephone number');
   }
 
+  const requirements = body.additional_requirements || body.requirements || {};
+  const packageType = typeof body.package_type === 'string'
+    ? body.package_type.trim()
+    : (typeof requirements.packageType === 'string' ? requirements.packageType.trim() : '');
+  const blouseOnly = packageType === 'designer-blouse';
   const eventDate = typeof body.event_date === 'string' ? body.event_date.trim() : '';
-  if (!eventDate) {
+  if (!blouseOnly && !eventDate) {
     errors.push('Event date is required');
   }
 
   const location = typeof body.location === 'string' ? body.location.trim() : '';
-  const requirements = body.additional_requirements || body.requirements || {};
   const eventAddress = typeof requirements.eventLocation === 'string' ? requirements.eventLocation.trim() : '';
   const eventMapUrl = typeof requirements.eventMapUrl === 'string' ? requirements.eventMapUrl.trim() : '';
-  if (!eventAddress && !eventMapUrl) errors.push('Provide an event address or Google Maps link');
-  if (eventMapUrl && !/^https:\/\/(maps\.app\.goo\.gl|www\.google\.com\/maps|maps\.google\.com)\//i.test(eventMapUrl)) errors.push('Event Google Maps link must be a valid Google Maps URL');
+  if (!blouseOnly && !eventAddress && !eventMapUrl) errors.push('Provide an event address or Google Maps link');
+  if (!blouseOnly && eventMapUrl && !/^https:\/\/(maps\.app\.goo\.gl|www\.google\.com\/maps|maps\.google\.com)\//i.test(eventMapUrl)) errors.push('Event Google Maps link must be a valid Google Maps URL');
 
   const serviceIds = Array.isArray(body.service_ids) ? body.service_ids : [];
   if (serviceIds.length === 0) {
@@ -72,6 +76,7 @@ export function validateBookingReservation(body) {
       customer_email: typeof body.customer_email === 'string' ? sanitizeInput(body.customer_email.trim().slice(0, 254)) : '',
       customer_address: typeof body.customer_address === 'string' ? sanitizeInput(body.customer_address.trim().slice(0, 1000)) : '',
       event_date: sanitizeInput(eventDate),
+      package_type: packageType,
       location: sanitizeInput(location || 'Salem'),
       service_ids: serviceIds,
       service_breakdown: body.service_breakdown || {},

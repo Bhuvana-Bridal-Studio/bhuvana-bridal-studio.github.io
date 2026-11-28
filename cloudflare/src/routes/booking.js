@@ -68,6 +68,7 @@ export async function handleSubmitBooking(request, env) {
     const { bookingRef, reservationToken, customerData } = validation.data;
     const customer = customerData || {};
     const customerValidation = validateBookingReservation({
+      package_type: customer.package_type || customer.additional_requirements?.packageType,
       customer_name: customer.customer_name,
       customer_phone: customer.customer_phone || customer.customer_mobile,
       customer_whatsapp: customer.customer_whatsapp || '',

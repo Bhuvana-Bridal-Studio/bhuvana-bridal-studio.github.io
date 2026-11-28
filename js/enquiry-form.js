@@ -65,6 +65,8 @@
     // STEP DISPLAY & PROGRESS BAR
     // =========================================================================
     function showStep(stepNum) {
+      // Blouse-only enquiries do not need celebration/event details.
+      if (store.getPackageType() === 'designer-blouse' && stepNum === 2) stepNum = 3;
       currentStep = stepNum;
       store.renderProgressBar('progress-bar-container', currentStep);
 
@@ -105,6 +107,28 @@
         } else {
           titleDisplay.textContent = 'Bridal Beauty Experience';
         }
+      }
+      if (pkg === 'designer-blouse') {
+        const step1Continue = document.querySelector('#form-step-1 button[type="submit"]');
+        const step3Label = document.querySelector('#step-3 .eyebrow');
+        const step4Label = document.querySelector('#step-4 .eyebrow');
+        const step5Label = document.querySelector('#step-5 .eyebrow');
+        const eventSummary = document.getElementById('review-event-card');
+        const serviceSummaryTitle = document.querySelector('#step-5 .review-card[data-review-section="services"] strong');
+        const customizationSummaryTitle = document.querySelector('#step-5 .review-card[data-review-section="customization"] strong');
+        const submissionNotice = document.querySelector('#submission-panel > div p');
+        if (step1Continue) step1Continue.innerHTML = 'Continue to Blouse Details &rarr;';
+        if (step3Label) step3Label.textContent = 'Step 2 of 4 · Service Details';
+        if (step4Label) step4Label.textContent = 'Step 3 of 4 · Preferences';
+        if (step5Label) step5Label.textContent = 'Step 4 of 4 · Review & Confirm';
+        if (eventSummary) eventSummary.hidden = true;
+        if (serviceSummaryTitle) serviceSummaryTitle.textContent = '2. Service Specifications';
+        if (customizationSummaryTitle) customizationSummaryTitle.textContent = '3. Customization & References';
+        if (submissionNotice) submissionNotice.textContent = 'Submitting this enquiry sends your blouse requirements to Bhuvaneshwari. The studio will review the design, measurements, fabric, and artisan availability before confirming the order.';
+        document.querySelectorAll('#step-3 .btn-step-back[data-target="step-2"]').forEach(button => {
+          button.dataset.target = 'step-1';
+          button.innerHTML = '&larr; Back to Personal Details';
+        });
       }
     }
 
@@ -308,7 +332,7 @@
           whatsappConsent: f1.elements.whatsappConsent.checked
         }));
 
-        showStep(2);
+        showStep(store.getPackageType() === 'designer-blouse' ? 3 : 2);
       });
     }
 
@@ -761,6 +785,7 @@
               customer_email: contact.email || '',
               customer_address: contact.address || '',
               event_date: eventDetails.eventDate || contact.eventDate || '',
+              package_type: store.getPackageType(),
               location: eventDetails.eventLocation || contact.city || 'Salem',
               service_ids: services.map(s => s.id),
               service_breakdown: {
@@ -768,6 +793,7 @@
                 tailoring: services.filter(s => s.divisionId === 'designer-blouse').map(s => s.title)
               },
               additional_requirements: Object.assign({}, requirements, {
+                packageType: store.getPackageType(),
                 eventName: eventDetails.eventName,
                 eventType: eventDetails.eventType,
                 eventTime: eventDetails.eventTime,
@@ -848,7 +874,7 @@
         btn.addEventListener('click', function () {
           const target = this.dataset.target;
           if (target === 'step-1') showStep(1);
-          else if (target === 'step-2') showStep(2);
+          else if (target === 'step-2') showStep(store.getPackageType() === 'designer-blouse' ? 1 : 2);
           else if (target === 'step-3') showStep(3);
           else if (target === 'step-4') showStep(4);
         });
@@ -858,7 +884,9 @@
       document.querySelectorAll('.btn-jump-step').forEach(btn => {
         btn.addEventListener('click', function () {
           const step = parseInt(this.dataset.step, 10);
-          if (step >= 1 && step <= 4) {
+          if (store.getPackageType() === 'designer-blouse' && step === 2) {
+            showStep(3);
+          } else if (step >= 1 && step <= 4) {
             showStep(step);
           }
         });
