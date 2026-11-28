@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /studio-login.html
+Disallow: /studio-inbox.html
+Sitemap: https://bhuvana-bridal-studio.github.io/sitemap.xml
